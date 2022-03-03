@@ -16,7 +16,9 @@ module.exports = {
     },
     colors: {
       // TODO:
-      primary: {},
+      primary: {
+        700: "#1d2080",
+      },
       gray: {
         900: "#000000",
       },
