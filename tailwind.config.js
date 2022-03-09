@@ -6,7 +6,7 @@ module.exports = {
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
     screen: {
-      lg: "1280px",
+      lg: "1024px",
     },
     container: {
       padding: {
@@ -14,22 +14,36 @@ module.exports = {
         sm: "32px",
       },
     },
-    colors: {
-      // TODO:
-      primary: {
-        700: "#1d2080",
-      },
-      gray: {
-        900: "#000000",
-      },
-      white: colors.white,
-    },
+    // Exclude unnecessary colors
+    colors: {},
     fontFamily: {
       // TODO:
       sans: ["Noto Sans TC", ...defaultTheme.fontFamily.sans],
       // mono: defaultTheme.fontFamily.mono,
     },
-    extend: {},
+    extend: {
+      // Put under `extends` to avoid being overwritten by daisyui
+      colors: {
+        primary: {
+          700: "#1d2080",
+          500: "#2b62f6",
+          400: "#3569f5",
+        },
+        gray: {
+          900: "#000000",
+          500: "#4d4d4d",
+          300: "#9d9d9d",
+          "old-text-default": "#312c30",
+          "old-input-border": "#7c7c7c",
+        },
+        white: colors.white,
+      },
+    },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+  daisyui: {
+    styled: false,
+    themes: [],
+    base: false,
+  },
 };

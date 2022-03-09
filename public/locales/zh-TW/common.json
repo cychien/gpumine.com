@@ -1,4 +1,13 @@
 {
   "home": "首頁",
-  "help": "幫助"
+  "support": "幫助",
+  "tools": "工具",
+  "address-type": "錢包幣種",
+  "fill-out-account": "請輸入錢包地址",
+  "search-account": "查詢錢包地址",
+  "last-research": "上次搜詢",
+  "open-menu": "打開主選單",
+  "account-address": "錢包地址",
+  "close": "關閉",
+  "confirm": "確定"
 }

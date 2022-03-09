@@ -38,7 +38,6 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
-        <style>{".showWhenNoJS {display: none}"}</style>
       </head>
       <body>
         <div className="root">
@@ -48,12 +47,6 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
-        {/* If user disable JS, hide all components that need JS and replace them with pure html version */}
-        <noscript>
-          <style type="text/css">
-            {".hideWhenNoJS {display:none} .showWhenNoJS {display: block}"}
-          </style>
-        </noscript>
       </body>
     </html>
   );

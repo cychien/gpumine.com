@@ -9,9 +9,9 @@ export const loader: LoaderFunction = ({ request, params }) => {
   const pathParts = path.split("/");
 
   if (["zh-TW", "en", "tw"].includes(pathParts[0])) {
-    return {
+    throw new Response("Not Found", {
       status: 404,
-    };
+    });
   }
 
   let lng = detectLanguageOnServer(request);

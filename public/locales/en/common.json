@@ -1,4 +1,13 @@
 {
   "home": "Home",
-  "help": "Help"
+  "support": "Support",
+  "tools": "Tools",
+  "address-type": "Currency type of the address",
+  "fill-out-account": "Please fill in your wallet address",
+  "search-account": "Search account",
+  "last-search": "Last Search",
+  "open-menu": "Open menu",
+  "account-address": "Account address",
+  "close": "Close",
+  "confirm": "Confirm"
 }
