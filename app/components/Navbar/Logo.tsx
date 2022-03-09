@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import desktopLogoEN from "~/assets/images/logo-desktop-en.png";
-import desktopLogoTW from "~/assets/images/logo-desktop-tw.png";
+import desktopLogoEN from "~/assets/images/logo-header-en.png";
+import desktopLogoTW from "~/assets/images/logo-header-tw.png";
 import mobileLogo from "~/assets/images/logo-mobile.png";
 import getLocalizedPathname from "~/utils/getLocalizedPathname";
 

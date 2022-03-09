@@ -17,7 +17,7 @@ function usePages() {
     },
     {
       name: t("support"),
-      link: `https://gpumine.zendesk.com/hc/${i18n.language}`,
+      link: "https://gpumine.zendesk.com/hc/zh-tw",
       id: "support",
     },
   ];

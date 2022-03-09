@@ -16,7 +16,7 @@ function Navbar() {
         />
       )}
 
-      <header className="sticky top-0 flex justify-between items-center h-[70px] px-[22px] lg:h-[100px] lg:px-[48px] bg-white">
+      <header className="flex justify-between items-center h-[70px] px-[22px] lg:h-[100px] lg:px-[48px] bg-white">
         <Logo />
         <div className="hidden lg:block">
           <DesktopNav />
