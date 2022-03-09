@@ -164,6 +164,7 @@ function SocialLinksAndDarkMode() {
         target="_blank"
         className={socialLinkStyle}
       >
+        <div className="sr-only">Email</div>
         <svg className="w-[20px] h-[20px] text-white">
           <use href={`${svgSprites}#email`} />
         </svg>
@@ -174,6 +175,7 @@ function SocialLinksAndDarkMode() {
         target="_blank"
         className={socialLinkStyle}
       >
+        <div className="sr-only">Line</div>
         <svg className="w-[20px] h-[20px] text-white">
           <use href={`${svgSprites}#line`} />
         </svg>
@@ -184,11 +186,13 @@ function SocialLinksAndDarkMode() {
         target="_blank"
         className={socialLinkStyle}
       >
+        <div className="sr-only">Facebook</div>
         <svg className="w-[20px] h-[20px] text-white">
           <use href={`${svgSprites}#facebook`} />
         </svg>
       </a>
-      <a href="" rel="noreferrer" target="_blank" className={socialLinkStyle}>
+      <a href="/" rel="noreferrer" target="_blank" className={socialLinkStyle}>
+        <div className="sr-only">Facebook</div>
         <svg className="w-[20px] h-[20px] text-white">
           <use href={`${svgSprites}#dark-mode`} />
         </svg>
