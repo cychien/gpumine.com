@@ -13,6 +13,8 @@ import styles from "./styles/app.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { detectCurrencyOnServer } from "./utils/currency";
+import PRELOADED_ASSETS from "./constants/preloaded-assets";
+import { ThemeProvider } from "./utils/theme";
 
 export const meta: MetaFunction = () => {
   return { title: "GPUMINE POOL" };
@@ -31,6 +33,11 @@ export function links() {
       rel: "stylesheet",
       href: "https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap",
     },
+    ...PRELOADED_ASSETS.map((asset) => ({
+      rel: "preload",
+      href: asset.href,
+      as: asset.as,
+    })),
   ];
 }
 
@@ -48,7 +55,8 @@ export default function App() {
   const { currency } = useLoaderData<LoaderData>();
 
   return (
-    <html lang="en">
+    // Possible different from ssr due to dark mode
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -57,13 +65,15 @@ export default function App() {
       </head>
       <body>
         <div className="root">
-          <div className="sticky top-0">
-            <Navbar />
-          </div>
-          <Outlet />
-          <div className="mt-[50px] lg:mt-[100px]">
-            <Footer currency={currency} />
-          </div>
+          <ThemeProvider>
+            <div className="sticky top-0">
+              <Navbar />
+            </div>
+            <Outlet />
+            <div className="mt-[50px] lg:mt-[100px]">
+              <Footer currency={currency} />
+            </div>
+          </ThemeProvider>
         </div>
         <ScrollRestoration />
         <Scripts />

@@ -5,6 +5,8 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "../Menu";
 import { Link, useLocation } from "remix";
 import getLocalizedPathname from "~/utils/getLocalizedPathname";
 import useCookie from "react-use/lib/useCookie";
+import cx from "classnames";
+import { useTheme } from "~/utils/theme";
 
 const linkStyle =
   "text-gray-old-text-default text-sm font-medium hover:opacity-60";
@@ -156,6 +158,9 @@ function Controls({ currency }: ControlsProps) {
 }
 
 function SocialLinksAndDarkMode() {
+  const { t } = useTranslation();
+  const { theme, setTheme } = useTheme();
+
   return (
     <div className="grid grid-cols-2 gap-[10px] sm:grid-cols-4">
       <a
@@ -191,12 +196,25 @@ function SocialLinksAndDarkMode() {
           <use href={`${svgSprites}#facebook`} />
         </svg>
       </a>
-      <a href="/" rel="noreferrer" target="_blank" className={socialLinkStyle}>
-        <div className="sr-only">Facebook</div>
-        <svg className="w-[20px] h-[20px] text-white">
+      <button
+        type="button"
+        className={cx(socialLinkStyle, "!bg-white border border-[##2c272b]")}
+        onClick={() => {
+          if (theme === "light") {
+            setTheme("dark");
+          } else {
+            setTheme("light");
+          }
+        }}
+      >
+        {/* Possible different from ssr due to dark mode */}
+        <div className="sr-only" suppressHydrationWarning>
+          {theme === "dark" ? t("switch-to-light") : t("switch-to-dark")}
+        </div>
+        <svg className="w-[20px] h-[20px] text-[#2c272b]">
           <use href={`${svgSprites}#dark-mode`} />
         </svg>
-      </a>
+      </button>
     </div>
   );
 }

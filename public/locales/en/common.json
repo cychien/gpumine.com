@@ -14,5 +14,7 @@
   "contact-us": "Contact Us",
   "select-language": "Select language",
   "select-currency": "Select currency",
-  "brand-full-name": "Crypto Mining Pool"
+  "brand-full-name": "Crypto Mining Pool",
+  "switch-to-dark": "Switch to dark mode",
+  "switch-to-light": "Switch to light mode"
 }

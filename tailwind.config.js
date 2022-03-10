@@ -3,6 +3,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   mode: "jit",
+  darkMode: "class",
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
     screen: {
@@ -36,6 +37,14 @@ module.exports = {
           300: "#9d9d9d",
           "old-text-default": "#312c30",
           "old-input-border": "#7c7c7c",
+        },
+        primaryd: {
+          500: "#6485dd",
+        },
+        grayd: {
+          "old-bg-primary": "#171717",
+          "old-text-default": colors.white,
+          "old-input-border": "#a0a0a0",
         },
         white: colors.white,
       },
