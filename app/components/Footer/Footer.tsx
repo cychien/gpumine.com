@@ -7,11 +7,11 @@ import getLocalizedPathname from "~/utils/getLocalizedPathname";
 import useCookie from "react-use/lib/useCookie";
 import cx from "classnames";
 import { useTheme } from "~/utils/theme";
+import { useHydrated } from "remix-utils";
 
-const linkStyle =
-  "text-gray-old-text-default text-sm font-medium hover:opacity-60";
+const linkStyle = "text-default text-sm font-medium hover:opacity-60";
 const socialLinkStyle =
-  "min-w-[30px] min-h-[30px] w-[30px] h-[30px] rounded-full bg-[#2c272b] flex justify-center items-center hover:opacity-60";
+  "min-w-[30px] min-h-[30px] w-[30px] h-[30px] rounded-full bg-[#2c272b] dark:bg-white flex justify-center items-center hover:opacity-60";
 
 const LANGUAGES: Record<string, string> = {
   en: "English",
@@ -27,7 +27,7 @@ type Props = {
 function Footer({ currency }: Props) {
   return (
     <footer
-      className="bg-white"
+      className="bg-primary transition-colors"
       style={{ boxShadow: "-1px -1px 6px rgba(0, 0, 0, 0.16)" }}
     >
       {/* Desktop */}
@@ -41,7 +41,7 @@ function Footer({ currency }: Props) {
       {/* Mobile */}
       <div className="block max-w-[1280px] mx-auto p-[30px] lg:hidden">
         <Logo />
-        <div className="w-full h-[1px] my-[20px] bg-primary-700 block lg:hidden" />
+        <div className="w-full h-[1px] my-[20px] bg-primary-700 dark:bg-white block lg:hidden" />
         <div className="flex items-center justify-between">
           <div>
             <Navs />
@@ -53,7 +53,7 @@ function Footer({ currency }: Props) {
         </div>
       </div>
 
-      <div className="pb-[24px] text-xs text-center text-gray-old-text-default">
+      <div className="pb-[24px] text-xs text-center text-default">
         © SUPPORT JOHN@GPUMINE.ORG
       </div>
     </footer>
@@ -101,21 +101,23 @@ function Controls({ currency }: ControlsProps) {
       <Menu className="relative">
         <MenuButton
           ariaLabel={t("select-language")}
-          className="flex items-center px-[6px] h-[36px] rounded-[5px] border border-gray-old-input-border"
+          className="flex items-center px-[6px] h-[36px] rounded-[5px] border border-input-border"
         >
-          <svg className="min-w-[30px] min-h-[30px] w-[30px] h-[30px] text-gray-old-text-default">
+          <svg className="min-w-[30px] min-h-[30px] w-[30px] h-[30px] text-default">
             <use href={`${svgSprites}#globe`} />
           </svg>
-          <span className="text-sm">{LANGUAGES[i18n.language]}</span>
-          <svg className="min-w-[30px] min-h-[30px] w-[30px] h-[30px] text-gray-old-text-default">
+          <span className="text-sm dark:text-white">
+            {LANGUAGES[i18n.language]}
+          </span>
+          <svg className="min-w-[30px] min-h-[30px] w-[30px] h-[30px] text-default">
             <use href={`${svgSprites}#chevron-down`} />
           </svg>
         </MenuButton>
-        <MenuItems className="absolute top-0 inset-x-0 -translate-y-[calc(100%+4px)] p-[6px] rounded-[5px] bg-white border border-gray-old-input-border">
+        <MenuItems className="absolute top-0 inset-x-0 -translate-y-[calc(100%+4px)] p-[6px] rounded-[5px] bg-primary border border-input-border">
           {Object.entries(LANGUAGES).map(([lang, name]) => (
             <MenuItem key={lang}>
               <Link
-                className="h-[28px] flex justify-center items-center rounded-[5px] text-gray-old-text-default text-sm hover:bg-[#f2f2f2]"
+                className="h-[28px] flex justify-center items-center rounded-[5px] text-default text-sm hover:bg-[#f2f2f2] dark:hover:bg-[#505050]"
                 to={getLocalizedPathname(pathnameWithoutLocale, lang)}
                 onClick={() => {
                   i18n.changeLanguage(lang);
@@ -130,18 +132,18 @@ function Controls({ currency }: ControlsProps) {
       <Menu className="relative">
         <MenuButton
           ariaLabel={t("select-currency")}
-          className="flex items-center px-[6px] h-[36px] rounded-[5px] border border-gray-old-input-border"
+          className="flex items-center px-[6px] h-[36px] rounded-[5px] border border-input-border"
         >
-          <span className="text-sm">{currency}</span>
-          <svg className="min-w-[30px] min-h-[30px] w-[30px] h-[30px] text-gray-old-text-default">
+          <span className="text-sm dark:text-white">{currency}</span>
+          <svg className="min-w-[30px] min-h-[30px] w-[30px] h-[30px] text-default">
             <use href={`${svgSprites}#chevron-down`} />
           </svg>
         </MenuButton>
-        <MenuItems className="absolute top-0 inset-x-0 -translate-y-[calc(100%+4px)] p-[6px] rounded-[5px] bg-white border border-gray-old-input-border">
+        <MenuItems className="absolute top-0 inset-x-0 -translate-y-[calc(100%+4px)] p-[6px] rounded-[5px] bg-primary border border-input-border">
           {CURRENCIES.map((currency) => (
             <MenuItem key={currency}>
               <Link
-                className="h-[28px] flex justify-center items-center rounded-[5px] text-gray-old-text-default text-sm hover:bg-[#f2f2f2]"
+                className="h-[28px] flex justify-center items-center rounded-[5px] text-default text-sm hover:bg-[#f2f2f2] dark:hover:bg-[#505050]"
                 to={pathname + `?currency=${currency}`}
                 onClick={() => {
                   updateCookieCurrency(currency);
@@ -160,6 +162,7 @@ function Controls({ currency }: ControlsProps) {
 function SocialLinksAndDarkMode() {
   const { t } = useTranslation();
   const { theme, setTheme } = useTheme();
+  const isHydrated = useHydrated();
 
   return (
     <div className="grid grid-cols-2 gap-[10px] sm:grid-cols-4">
@@ -170,7 +173,7 @@ function SocialLinksAndDarkMode() {
         className={socialLinkStyle}
       >
         <div className="sr-only">Email</div>
-        <svg className="w-[20px] h-[20px] text-white">
+        <svg className="w-[20px] h-[20px] text-white dark:text-[#292828]">
           <use href={`${svgSprites}#email`} />
         </svg>
       </a>
@@ -181,7 +184,7 @@ function SocialLinksAndDarkMode() {
         className={socialLinkStyle}
       >
         <div className="sr-only">Line</div>
-        <svg className="w-[20px] h-[20px] text-white">
+        <svg className="w-[20px] h-[20px] text-white dark:text-[#292828]">
           <use href={`${svgSprites}#line`} />
         </svg>
       </a>
@@ -192,29 +195,36 @@ function SocialLinksAndDarkMode() {
         className={socialLinkStyle}
       >
         <div className="sr-only">Facebook</div>
-        <svg className="w-[20px] h-[20px] text-white">
+        <svg className="w-[20px] h-[20px] text-white dark:text-[#292828]">
           <use href={`${svgSprites}#facebook`} />
         </svg>
       </a>
-      <button
-        type="button"
-        className={cx(socialLinkStyle, "!bg-white border border-[##2c272b]")}
-        onClick={() => {
-          if (theme === "light") {
-            setTheme("dark");
-          } else {
-            setTheme("light");
-          }
-        }}
-      >
-        {/* Possible different from ssr due to dark mode */}
-        <div className="sr-only" suppressHydrationWarning>
-          {theme === "dark" ? t("switch-to-light") : t("switch-to-dark")}
-        </div>
-        <svg className="w-[20px] h-[20px] text-[#2c272b]">
-          <use href={`${svgSprites}#dark-mode`} />
-        </svg>
-      </button>
+      <div className="min-w-[30px] min-h-[30px] w-[30px] h-[30px]">
+        {isHydrated && (
+          <button
+            type="button"
+            className={cx(
+              socialLinkStyle,
+              "!bg-transparent border border-[#2c272b] dark:border-white"
+            )}
+            onClick={() => {
+              if (theme === "light") {
+                setTheme("dark");
+              } else {
+                setTheme("light");
+              }
+            }}
+          >
+            {/* Possible different from ssr due to dark mode */}
+            <div className="sr-only" suppressHydrationWarning>
+              {theme === "dark" ? t("switch-to-light") : t("switch-to-dark")}
+            </div>
+            <svg className="w-[20px] h-[20px] text-[#2c272b] dark:text-white">
+              <use href={`${svgSprites}#dark-mode`} />
+            </svg>
+          </button>
+        )}
+      </div>
     </div>
   );
 }

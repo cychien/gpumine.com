@@ -18,7 +18,6 @@ const ThemeCtx = React.createContext<ThemeContext>({
 
 function ThemeProvider({ children }: ProviderProps) {
   const [theme, setTheme] = React.useState<ThemeState>("light");
-  const [hasInit, setHasInit] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     function getUserPreference() {
@@ -32,12 +31,8 @@ function ThemeProvider({ children }: ProviderProps) {
     const theme = getUserPreference();
     if (theme === "dark") {
       setTheme("dark");
-      document.documentElement.classList.add("dark");
-      setHasInit(true);
     } else {
       setTheme("light");
-      document.documentElement.classList.remove("dark");
-      setHasInit(true);
     }
   }, []);
 
@@ -50,8 +45,6 @@ function ThemeProvider({ children }: ProviderProps) {
       document.documentElement.classList.remove("dark");
     }
   }, [theme]);
-
-  if (!hasInit) return null;
 
   return (
     <ThemeCtx.Provider value={{ theme, setTheme }}>

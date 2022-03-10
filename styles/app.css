@@ -57,3 +57,18 @@
     @apply isolate;
   }
 }
+
+@layer utilities {
+  .text-default {
+    @apply text-text-default-light dark:text-text-default-dark;
+  }
+  .border-input-border {
+    @apply border-input-border-light dark:border-input-border-dark;
+  }
+  .bg-primary {
+    @apply bg-bg-primary-light dark:bg-bg-primary-dark;
+  }
+  .bg-card-bg {
+    @apply bg-card-bg-light dark:bg-card-bg-dark;
+  }
+}

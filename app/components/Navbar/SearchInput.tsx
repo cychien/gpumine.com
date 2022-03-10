@@ -65,14 +65,14 @@ function SearchInput() {
         }
       }}
     >
-      <div className="flex items-center border border-gray-old-input-border rounded-[10px] px-2 w-[400px] h-[32px]">
+      <div className="flex items-center border border-input-border rounded-[10px] px-2 w-[400px] h-[32px]">
         <Select
           label={t("address-type")}
           name="address_type"
           defaultValue={SUPPORTED_COINS[0].value}
         >
           <SelectLabel className="sr-only" />
-          <NativeSelect className="w-[90px] text-sm bg-white">
+          <NativeSelect className="w-[90px] text-sm bg-primary text-default">
             {SUPPORTED_COINS.map((type) => (
               <NativeSelectOption key={type.value} value={type.value}>
                 {type.name}
@@ -81,22 +81,22 @@ function SearchInput() {
           </NativeSelect>
           <CustomJSSelect />
         </Select>
-        <div className="w-[1px] h-[20px] bg-gray-old-input-border" />
+        <div className="w-[1px] h-[20px] bg-input-border-light dark:bg-input-border-dark" />
         <div
           className="relative flex-1 h-full flex items-center"
           ref={inputAreaRef}
         >
           <input
             name="address"
-            className="block w-full px-[10px] text-xs focus:outline-none placeholder:text-gray-old-input-border"
+            className="block w-full px-[10px] text-xs focus:outline-none placeholder:text-input-border-light dark:text-white bg-primary transition-colors"
             placeholder={t("fill-out-account")}
             onClick={() => {
               setShouldShowHistory(true);
             }}
           />
           {searchHistory && shouldShowHistory && (
-            <div className="absolute top-[40px] bg-white border border-gray-old-input-border w-[265px] px-4 py-2 rounded-[10px] before:content-[''] before:absolute before:top-0 before:left-0 before:w-[8px] before:h-[8px] before:border-t before:border-l before:bg-white before:translate-x-[25px] before:translate-y-[-5px] before:block before:border-gray-old-input-border before:rotate-[45deg]">
-              <div className="text-gray-300 text-xs mb-1">
+            <div className="absolute top-[40px] bg-primary border border-input-border w-[265px] px-4 py-2 rounded-[10px] before:content-[''] before:absolute before:top-0 before:left-0 before:w-[8px] before:h-[8px] before:border-t before:border-l before:bg-primary before:translate-x-[25px] before:translate-y-[-5px] before:block before:border-input-border before:rotate-[45deg]">
+              <div className="text-gray-300 dark:text-[#9d9d9d] text-xs mb-1">
                 {t("last-search")}
               </div>
               <ul className="space-y-2">
@@ -111,12 +111,12 @@ function SearchInput() {
                       )}
                       className="flex items-center"
                     >
-                      <svg className="min-w-[25px] min-h-[25px] w-[25px] h-[25px] text-gray-old-text-default group-hover:text-primary-500">
+                      <svg className="min-w-[25px] min-h-[25px] w-[25px] h-[25px] text-default group-hover:text-primary-500 dark:group-hover:text-primary-200">
                         <use
                           href={`${svgSprites}#${history.currency.toLowerCase()}`}
                         />
                       </svg>
-                      <span className="ml-2 flex-1 text-gray-old-text-default text-sm group-hover:text-primary-500 overflow-hidden text-ellipsis">
+                      <span className="ml-2 flex-1 text-default text-sm group-hover:text-primary-500 dark:group-hover:text-primary-200 overflow-hidden text-ellipsis">
                         {history.account}
                       </span>
                     </a>
@@ -131,7 +131,7 @@ function SearchInput() {
           aria-label={t("search-account")}
           className="group"
         >
-          <svg className="w-[24px] h-[24px] text-gray-old-text-default group-hover:text-primary-500">
+          <svg className="w-[24px] h-[24px] text-default group-hover:text-primary-500 dark:group-hover:text-primary-200">
             <use href={`${svgSprites}#search`} />
           </svg>
         </button>
@@ -150,17 +150,15 @@ function CustomJSSelect() {
   return (
     <JSSelect className="relative">
       <JSSelectButton className="relative flex items-center space-x-1">
-        <svg className="min-w-[25px] min-h-[25px] w-[25px] h-[25px] text-gray-old-text-default">
+        <svg className="min-w-[25px] min-h-[25px] w-[25px] h-[25px] text-default">
           <use href={`${svgSprites}#${selectedAddressType.iconId}`} />
         </svg>
-        <span className="text-gray-old-text-default text-sm">
-          {selectedAddressType.name}
-        </span>
-        <svg className="min-w-[30px] min-h-[30px] w-[30px] h-[30px] text-gray-old-text-default">
+        <span className="text-default text-sm">{selectedAddressType.name}</span>
+        <svg className="min-w-[30px] min-h-[30px] w-[30px] h-[30px] text-default">
           <use href={`${svgSprites}#chevron-down`} />
         </svg>
       </JSSelectButton>
-      <JSSelectOptions className="absolute top-[40px] left-[-8px] bg-white border border-gray-old-input-border w-[320px] p-1 rounded-[10px] before:content-[''] before:absolute before:top-0 before:left-0 before:w-[8px] before:h-[8px] before:border-t before:border-l before:bg-white before:translate-x-[25px] before:translate-y-[-5px] before:block before:border-gray-old-input-border before:rotate-[45deg]">
+      <JSSelectOptions className="absolute top-[40px] left-[-8px] bg-primary border border-input-border w-[320px] p-1 rounded-[10px] before:content-[''] before:absolute before:top-0 before:left-0 before:w-[8px] before:h-[8px] before:border-t before:border-l before:bg-primary before:translate-x-[25px] before:translate-y-[-5px] before:block before:border-input-border before:rotate-[45deg]">
         {SUPPORTED_COINS.map((type) => (
           <JSSelectOption
             key={type.value}
@@ -169,15 +167,15 @@ function CustomJSSelect() {
               cx(
                 "flex items-center space-x-1 p-1 group cursor-pointer rounded-[8px]",
                 {
-                  "bg-primary-500/10": active,
+                  "bg-primary-500/10 dark:bg-white/20": active,
                 }
               )
             }
           >
-            <svg className="min-w-[25px] min-h-[25px] w-[25px] h-[25px] text-gray-old-text-default group-hover:text-primary-500">
+            <svg className="min-w-[25px] min-h-[25px] w-[25px] h-[25px] text-default group-hover:text-primary-500 dark:group-hover:text-primary-200">
               <use href={`${svgSprites}#${type.iconId}`} />
             </svg>
-            <span className="text-gray-old-text-default text-sm group-hover:text-primary-500">
+            <span className="text-default text-sm group-hover:text-primary-500 dark:group-hover:text-primary-200">
               {type.name}
             </span>
           </JSSelectOption>

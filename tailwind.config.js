@@ -26,27 +26,34 @@ module.exports = {
     extend: {
       // Put under `extends` to avoid being overwritten by daisyui
       colors: {
+        "text-default": {
+          light: "#312c30",
+          dark: colors.white,
+        },
+        "input-border": {
+          light: "#7c7c7c",
+          dark: "#a0a0a0",
+        },
+        "bg-primary": {
+          light: colors.white,
+          dark: "#171717",
+        },
+        "card-bg": {
+          light: colors.white,
+          dark: "rgba(255, 255, 255, 0.1)",
+        },
+        white: colors.white,
         primary: {
           700: "#1d2080",
           500: "#2b62f6",
           400: "#3569f5",
+          200: "#6485dd",
         },
         gray: {
           900: "#000000",
           500: "#4d4d4d",
           300: "#9d9d9d",
-          "old-text-default": "#312c30",
-          "old-input-border": "#7c7c7c",
         },
-        primaryd: {
-          500: "#6485dd",
-        },
-        grayd: {
-          "old-bg-primary": "#171717",
-          "old-text-default": colors.white,
-          "old-input-border": "#a0a0a0",
-        },
-        white: colors.white,
       },
     },
   },

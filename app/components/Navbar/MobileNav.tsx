@@ -75,8 +75,8 @@ function MobileNav({
                 className={cx(
                   "min-w-[30px] min-h-[30px] w-[30px] h-[30px]",
                   isSearchOpen
-                    ? "text-primary-500"
-                    : "text-gray-old-text-default"
+                    ? "text-primary-500 dark:text-primary-200"
+                    : "text-default"
                 )}
               >
                 <use href={`${svgSprites}#search`} />
@@ -87,7 +87,7 @@ function MobileNav({
             <MenuItems
               isStatic
               // Overwrite daisyui's default styles
-              className="!fixed top-[86px] left-[16px] right-[16px] rounded-[10px] bg-white p-4 border-[0.5px] border-gray-300"
+              className="!fixed top-[86px] left-[16px] right-[16px] rounded-[10px] bg-primary p-4 border-[0.5px] border-gray-300"
             >
               <Form
                 method="get"
@@ -101,7 +101,7 @@ function MobileNav({
                   defaultValue={SUPPORTED_COINS[0].value}
                 >
                   <SelectLabel className="sr-only" />
-                  <NativeSelect className="w-[150px] h-[36px] text-sm font-bold px-2 border border-gray-old-input-border rounded-[5px] bg-white">
+                  <NativeSelect className="w-[150px] h-[36px] text-sm font-bold px-2 border border-input-border rounded-[5px] bg-card-bg">
                     {SUPPORTED_COINS.map((type) => (
                       <NativeSelectOption key={type.value} value={type.value}>
                         {type.name}
@@ -113,13 +113,13 @@ function MobileNav({
                 <input
                   name="address"
                   placeholder={t("account-address")}
-                  className="w-full h-[36px] px-[20px] border border-gray-old-input-border rounded-[10px] text-gray-old-text-default text-xs focus:outline-none focus:border-primary-500"
+                  className="w-full h-[36px] px-[20px] border border-input-border rounded-[10px] text-default text-xs focus:outline-none focus:border-primary-500 dark:focus:border-primary-200 bg-card-bg"
                 />
                 <div className="flex space-x-[20px] justify-center">
                   {isHydrated && (
                     <button
                       type="button"
-                      className="min-w-[110px] h-[36px] px-[20px] border-[0.5px] border-gray-old-input-border text-gray-old-text-default text-sm flex justify-center items-center rounded-full"
+                      className="min-w-[110px] h-[36px] px-[20px] border-[0.5px] border-input-border text-default text-sm flex justify-center items-center rounded-full bg-card-bg"
                       onClick={toggleSearch}
                     >
                       {t("close")}
@@ -127,7 +127,7 @@ function MobileNav({
                   )}
                   <button
                     type="submit"
-                    className="min-w-[110px] h-[36px] px-[20px] border-[0.5px] border-gray-old-input-border text-gray-old-text-default text-sm flex justify-center items-center rounded-full"
+                    className="min-w-[110px] h-[36px] px-[20px] border-[0.5px] border-input-border text-default text-sm flex justify-center items-center rounded-full bg-card-bg"
                   >
                     {t("confirm")}
                   </button>
@@ -144,14 +144,16 @@ function MobileNav({
               <svg
                 className={cx(
                   "min-w-[30px] min-h-[30px] w-[30px] h-[30px]",
-                  isMenuOpen ? "text-primary-500" : "text-gray-old-text-default"
+                  isMenuOpen
+                    ? "text-primary-500 dark:text-primary-200"
+                    : "text-default"
                 )}
               >
                 <use href={`${svgSprites}#menu`} />
               </svg>
             </span>
           </MenuButton>
-          <MenuItems className="!fixed !flex-row top-[86px] left-[16px] right-[16px] h-[80px] rounded-[10px] flex justify-evenly items-center bg-white border-[0.5px] border-gray-300">
+          <MenuItems className="!fixed !flex-row top-[86px] left-[16px] right-[16px] h-[80px] rounded-[10px] flex justify-evenly items-center bg-primary border-[0.5px] border-gray-300">
             {pages.map((page) => (
               <MenuItem key={page.id}>
                 <Link to={page.link} onClick={toggleMenu}>
@@ -175,30 +177,30 @@ function CustomJSSelect() {
 
   return (
     <JSSelect className="relative">
-      <JSSelectButton className="relative px-2 flex items-center w-[150px] h-[36px] border border-gray-old-input-border rounded-[5px] justify-between">
+      <JSSelectButton className="relative px-2 flex items-center w-[150px] h-[36px] border border-input-border bg-card-bg rounded-[5px] justify-between">
         <span className="flex items-center">
-          <svg className="min-w-[25px] min-h-[25px] w-[25px] h-[25px] text-gray-old-text-default">
+          <svg className="min-w-[25px] min-h-[25px] w-[25px] h-[25px] text-default">
             <use href={`${svgSprites}#${selectedAddressType.iconId}`} />
           </svg>
-          <span className="text-gray-old-text-default text-sm font-bold">
+          <span className="text-default text-sm font-bold">
             {selectedAddressType.name}
           </span>
         </span>
-        <svg className="min-w-[30px] min-h-[30px] w-[30px] h-[30px] text-gray-old-text-default">
+        <svg className="min-w-[30px] min-h-[30px] w-[30px] h-[30px] text-default">
           <use href={`${svgSprites}#chevron-down`} />
         </svg>
       </JSSelectButton>
-      <JSSelectOptions className="absolute inset-x-0 translate-y-2 bg-white border border-gray-old-input-border p-[6px] rounded-[5px]">
+      <JSSelectOptions className="absolute inset-x-0 translate-y-2 bg-white dark:bg-[#2f2f2f] border border-input-border p-[6px] rounded-[5px]">
         {SUPPORTED_COINS.map((type) => (
           <JSSelectOption
             key={type.value}
             value={type.value}
             className="flex justify-center items-center group cursor-pointer h-[30px]"
           >
-            <svg className="min-w-[25px] min-h-[25px] w-[25px] h-[25px] text-gray-old-text-default group-hover:text-primary-500">
+            <svg className="min-w-[25px] min-h-[25px] w-[25px] h-[25px] text-default group-hover:text-primary-500 dark:group-hover:text-primary-200">
               <use href={`${svgSprites}#${type.iconId}`} />
             </svg>
-            <span className="text-gray-old-text-default text-sm group-hover:text-primary-500 font-bold">
+            <span className="text-default text-sm group-hover:text-primary-500 dark:group-hover:text-primary-200 font-bold">
               {type.name}
             </span>
           </JSSelectOption>

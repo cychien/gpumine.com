@@ -10,7 +10,7 @@ type LinkProps = {
 
 function Link({ to, onClick, className, children }: LinkProps) {
   const linkStyle =
-    "block px-[15px] text-primary-700 text-[15px] text-sm leading-[32px]";
+    "block px-[15px] text-primary-700 dark:text-white dark:hover:text-[#a0a0a0] text-[15px] text-sm leading-[32px]";
 
   if (to.startsWith("https://")) {
     return (
@@ -28,7 +28,9 @@ function Link({ to, onClick, className, children }: LinkProps) {
       to={to}
       onClick={onClick}
       className={({ isActive }) =>
-        cx(linkStyle, { "border-b border-primary-700": isActive })
+        cx(linkStyle, {
+          "border-b border-primary-700 dark:border-white": isActive,
+        })
       }
       end
       children={children}

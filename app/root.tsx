@@ -51,6 +51,23 @@ type LoaderData = {
   currency: string;
 };
 
+const initThemeScript = `
+  (function () {
+    function getUserPreference() {
+      if(window.localStorage.getItem('color-mode')) {
+        return window.localStorage.getItem('color-mode')
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    }
+    const theme = getUserPreference()
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  })()
+`;
+
 export default function App() {
   const { currency } = useLoaderData<LoaderData>();
 
@@ -62,8 +79,9 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
+        <script dangerouslySetInnerHTML={{ __html: initThemeScript }} />
       </head>
-      <body>
+      <body className="bg-primary transition-colors">
         <div className="root">
           <ThemeProvider>
             <div className="sticky top-0">
