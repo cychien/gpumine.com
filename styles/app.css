@@ -62,6 +62,9 @@
   .text-default {
     @apply text-text-default-light dark:text-text-default-dark;
   }
+  .bg-default {
+    @apply bg-text-default-light dark:bg-text-default-dark;
+  }
   .border-input-border {
     @apply border-input-border-light dark:border-input-border-dark;
   }
@@ -70,5 +73,8 @@
   }
   .bg-card-bg {
     @apply bg-card-bg-light dark:bg-card-bg-dark;
+  }
+  .font-number {
+    @apply font-mono font-medium;
   }
 }

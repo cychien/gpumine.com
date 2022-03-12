@@ -1,9 +1,12 @@
-const SUPPORTED_CURRENCIES = ["USD", "TWD", "CNY", "HKD", "GBP"];
+const SUPPORTED_CURRENCIES = ["USD", "TWD", "CNY", "HKD", "GBP"] as const;
 const FALLBACK_CURRENCY = "USD";
 
 function getFromSupported(str: string | null) {
-  if (str && SUPPORTED_CURRENCIES.includes(str.toUpperCase()))
-    return str.toUpperCase();
+  if (
+    str &&
+    SUPPORTED_CURRENCIES.find((currency) => currency === str.toUpperCase())
+  )
+    return str.toUpperCase() as typeof SUPPORTED_CURRENCIES[number];
   return FALLBACK_CURRENCY;
 }
 

@@ -1,3 +1,4 @@
+import * as React from "react";
 import type { LoaderFunction } from "remix";
 import {
   Links,
@@ -31,7 +32,7 @@ export function links() {
     },
     {
       rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap",
+      href: "https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500&family=Noto+Sans+TC:wght@400;500;700&display=swap",
     },
     ...PRELOADED_ASSETS.map((asset) => ({
       rel: "preload",
@@ -70,6 +71,7 @@ const initThemeScript = `
 
 export default function App() {
   const { currency } = useLoaderData<LoaderData>();
+  const [localCurrency, setLocalCurrency] = React.useState(currency);
 
   return (
     // Possible different from ssr due to dark mode
@@ -84,16 +86,16 @@ export default function App() {
       <body className="bg-primary transition-colors">
         <div className="root">
           <ThemeProvider>
-            <div className="sticky top-0">
+            <div className="sticky top-0 z-10">
               <Navbar />
             </div>
-            <Outlet />
+            <Outlet context={{ currency: localCurrency }} />
             <div className="mt-[50px] lg:mt-[100px]">
-              <Footer currency={currency} />
+              <Footer currency={localCurrency} setCurrency={setLocalCurrency} />
             </div>
           </ThemeProvider>
         </div>
-        <ScrollRestoration />
+        {/* <ScrollRestoration /> */}
         <Scripts />
         <LiveReload />
       </body>

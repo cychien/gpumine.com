@@ -8,6 +8,8 @@ import useCookie from "react-use/lib/useCookie";
 import cx from "classnames";
 import { useTheme } from "~/utils/theme";
 import { useHydrated } from "remix-utils";
+import AjaxLink from "../AjaxLink";
+import { appendSearchObj, getSearchObj } from "~/utils/url";
 
 const linkStyle = "text-default text-sm font-medium hover:opacity-60";
 const socialLinkStyle =
@@ -22,9 +24,10 @@ const CURRENCIES = ["USD", "TWD", "CNY", "HKD", "GBP"];
 
 type Props = {
   currency: string;
+  setCurrency: (x: string) => void;
 };
 
-function Footer({ currency }: Props) {
+function Footer({ currency, setCurrency }: Props) {
   return (
     <footer
       className="bg-primary transition-colors"
@@ -33,7 +36,7 @@ function Footer({ currency }: Props) {
       {/* Desktop */}
       <div className="hidden max-w-[1280px] mx-auto lg:p-12 lg:flex lg:justify-between lg:items-center">
         <Logo />
-        <Controls currency={currency} />
+        <Controls currency={currency} setCurrency={setCurrency} />
         <Navs />
         <SocialLinksAndDarkMode />
       </div>
@@ -45,7 +48,7 @@ function Footer({ currency }: Props) {
         <div className="flex items-center justify-between">
           <div>
             <Navs />
-            <Controls currency={currency} />
+            <Controls currency={currency} setCurrency={setCurrency} />
           </div>
           <div>
             <SocialLinksAndDarkMode />
@@ -87,11 +90,12 @@ function Navs() {
 
 type ControlsProps = {
   currency: string;
+  setCurrency: (x: string) => void;
 };
 
-function Controls({ currency }: ControlsProps) {
+function Controls({ currency, setCurrency }: ControlsProps) {
   const { t, i18n } = useTranslation();
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const [_, updateCookieCurrency] = useCookie("gm-fiat");
 
   const pathnameWithoutLocale = pathname.split("/").slice(2).join("/");
@@ -142,15 +146,19 @@ function Controls({ currency }: ControlsProps) {
         <MenuItems className="absolute top-0 inset-x-0 -translate-y-[calc(100%+4px)] p-[6px] rounded-[5px] bg-primary border border-input-border">
           {CURRENCIES.map((currency) => (
             <MenuItem key={currency}>
-              <Link
-                className="h-[28px] flex justify-center items-center rounded-[5px] text-default text-sm hover:bg-[#f2f2f2] dark:hover:bg-[#505050]"
-                to={pathname + `?currency=${currency}`}
+              <AjaxLink
+                className="w-full h-[28px] flex justify-center items-center rounded-[5px] text-default text-sm hover:bg-[#f2f2f2] dark:hover:bg-[#505050]"
+                url={appendSearchObj(pathname, {
+                  ...getSearchObj(search),
+                  currency,
+                })}
                 onClick={() => {
+                  setCurrency(currency);
                   updateCookieCurrency(currency);
                 }}
               >
                 {currency}
-              </Link>
+              </AjaxLink>
             </MenuItem>
           ))}
         </MenuItems>

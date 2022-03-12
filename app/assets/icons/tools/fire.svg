@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40"
+  viewBox="0 0 40 40">
+  <defs>
+    <style>
+      .a {
+        fill: none;
+      }
+
+      .b {
+        fill: url(#a);
+      }
+    </style>
+    <linearGradient id="a" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff" />
+      <stop offset="0.805" stop-color="#2b62f6" />
+    </linearGradient>
+  </defs>
+  <rect class="a" width="40" height="40" />
+  <path class="b"
+    d="M11.564,0S5.977,2.043,5.153,6.2a11.647,11.647,0,0,0,.512,6.893,1.244,1.244,0,0,1-.512,1.674c-1.062.61-2.4-.979-2.62-2.851a13.637,13.637,0,0,1,.5-4.391A8.737,8.737,0,0,0,.1,15.3C.836,20.173,2.978,22.319,6.49,23.9A8.256,8.256,0,0,0,17.9,16.988c.861-7.244-4.721-7.618-6.336-10.47S11.564,0,11.564,0Z"
+    transform="translate(11 4.74)" />
+</svg>

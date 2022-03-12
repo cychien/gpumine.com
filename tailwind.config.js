@@ -19,9 +19,8 @@ module.exports = {
     // Exclude unnecessary colors
     colors: {},
     fontFamily: {
-      // TODO:
       sans: ["Noto Sans TC", ...defaultTheme.fontFamily.sans],
-      // mono: defaultTheme.fontFamily.mono,
+      mono: ["Azeret Mono", ...defaultTheme.fontFamily.mono],
     },
     extend: {
       // Put under `extends` to avoid being overwritten by daisyui

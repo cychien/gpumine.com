@@ -1,1 +1,6 @@
-{}
+{
+  "heading": "Watch as ETH gets burned with EIP-1559",
+  "total-burned": "In total {{- ethBurnedHtml }} {{- fiatHtml }} have been burned up to now.",
+  "base-fee": "Base fee",
+  "burn-rate": "Burn rate"
+}

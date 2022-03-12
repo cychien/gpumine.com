@@ -1,1 +1,6 @@
-{}
+{
+  "heading": "以太幣燒毀狀態於 EIP-1559",
+  "total-burned": "截至目前，共燒毀 {{- ethBurnedHtml }} {{- fiatHtml}}",
+  "base-fee": "基本費用",
+  "burn-rate": "燒毀率"
+}
