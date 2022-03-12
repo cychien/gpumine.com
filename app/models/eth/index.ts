@@ -1,2 +1,8 @@
 export * from "./getStats";
-export type { OneGasFeeRecord, Stats } from "./types";
+export * from "./getDifficulties";
+export type {
+  OneGasFeeRecord,
+  Stats,
+  OneDifficultyRecord,
+  Difficulties,
+} from "./types";

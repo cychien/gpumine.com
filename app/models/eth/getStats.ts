@@ -22,7 +22,7 @@ async function getStats() {
 
   invariant(
     isValidStats(data),
-    `https://gasnow.gpumine.org/api/stats has bad meta data!`
+    `https://gasnow.gpumine.org/api/stats has bad data!`
   );
 
   return data;

@@ -22,4 +22,17 @@ type Stats = {
   };
 };
 
-export type { OneGasFeeRecord, Stats };
+type OneDifficultyRecord = {
+  time: number;
+  difficulty: string;
+  tip: string;
+};
+
+type Difficulties = {
+  history3m: OneDifficultyRecord[];
+  history6m: OneDifficultyRecord[];
+  history1y: OneDifficultyRecord[];
+  totalhistory: OneDifficultyRecord[];
+};
+
+export type { OneGasFeeRecord, Stats, OneDifficultyRecord, Difficulties };

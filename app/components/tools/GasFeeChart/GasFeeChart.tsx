@@ -14,7 +14,7 @@ import {
   NameType,
 } from "recharts/src/component/DefaultTooltipContent";
 import type { OneGasFeeRecord } from "~/models/eth";
-import { format } from "date-fns";
+import format from "date-fns/format";
 import { toGWei } from "~/utils/calcutate";
 import ShiftBy from "~/components/ShiftBy";
 
@@ -33,6 +33,8 @@ function GasFeeChart({ data }: Props) {
           dy={16}
           tick={{ fill: "#2b62f6", fontSize: "14px", fontWeight: "500" }}
           tickFormatter={(value) => format(value * 1000, "HH:mm")}
+          stroke="#3569F5"
+          strokeWidth={2}
         />
         <XAxis
           xAxisId={1}
@@ -46,6 +48,7 @@ function GasFeeChart({ data }: Props) {
         <YAxis
           tick={{ fill: "#2b62f6", fontSize: "14px", fontWeight: "500" }}
           tickFormatter={(value) => toGWei(value)}
+          axisLine={false}
         />
         <Bar dataKey="basefee" stackId="gas-fee" fill="#2b62f6" />
         <Bar dataKey="tip" stackId="gas-fee" fill="#9d9d9d" />
@@ -72,7 +75,7 @@ function CustomTooltip({
         </div>
         <div className="flex justify-between">
           <div className="text-gray-300">Tip</div>
-          <div>{toGWei(payload?.[0].value as string)} GWei</div>
+          <div>{toGWei(payload?.[1].value as string)} GWei</div>
         </div>
         <div className="flex justify-between">
           <div className="text-primary-500">Base fee</div>

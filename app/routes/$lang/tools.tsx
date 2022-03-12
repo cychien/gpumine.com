@@ -4,16 +4,17 @@ import { useLoaderData } from "remix";
 import Card from "~/components/Card";
 import fireSvg from "~/assets/icons/tools/fire.svg";
 import gasStationSvg from "~/assets/icons/tools/gas-station.svg";
-import listSvg from "~/assets/icons/tools/list.svg";
 import ShiftBy from "~/components/ShiftBy";
-import { getStats } from "~/models/eth";
+import { getDifficulties, getStats } from "~/models/eth";
 import { toEth, toGWei } from "~/utils/calcutate";
 import GasFeeSection from "~/components/tools/GasFeeSection";
+import DifficultySection from "~/components/tools/DifficultySection";
 
 async function getLoaderData() {
   const stats = await getStats();
+  const difficulties = await getDifficulties();
 
-  return { stats };
+  return { stats, difficulties };
 }
 
 export const loader: LoaderFunction = async () => {
@@ -28,7 +29,7 @@ type LoaderData = Awaited<ReturnType<typeof getLoaderData>>;
 
 function Tools() {
   const { t } = useTranslation("tools");
-  const { stats } = useLoaderData<LoaderData>();
+  const { stats, difficulties } = useLoaderData<LoaderData>();
   const { currency } = useOutletContext<{ currency: string }>();
   const [searchParams] = useSearchParams();
 
@@ -41,7 +42,7 @@ function Tools() {
 
   return (
     <main className="max-w-[1280px] mx-auto px-[20px] lg:px-[48px]">
-      <h1 className="flex mt-[32px] lg:mt-0">
+      <h1 className="flex mt-8 lg:mt-4">
         <span className="mr-3 w-[6px] bg-default" />
         <span className="text-default text-lg font-bold">{t("heading")}</span>
       </h1>
@@ -118,6 +119,19 @@ function Tools() {
             defaultTimePeriod={
               (searchParams.get("stats_time_period") as "24h" | "7d" | "1m") ||
               "24h"
+            }
+          />
+        </Card>
+
+        <Card className="!px-[24px] !py-[22px] lg:!py-[28px]">
+          <DifficultySection
+            difficulties={difficulties}
+            defaultTimePeriod={
+              (searchParams.get("difficulty_time_period") as
+                | "3m"
+                | "6m"
+                | "1y"
+                | "all") || "3m"
             }
           />
         </Card>

@@ -2,5 +2,8 @@
   "heading": "Watch as ETH gets burned with EIP-1559",
   "total-burned": "In total {{- ethBurnedHtml }} {{- fiatHtml }} have been burned up to now.",
   "base-fee": "Base fee",
-  "burn-rate": "Burn rate"
+  "burn-rate": "Burn rate",
+  "tx-fees-and-difficulty": "Tx fees and difficulty",
+  "tx-fees": "Tx fees",
+  "difficulty": "Difficulty"
 }

@@ -93,7 +93,7 @@ function GasFeeSection({ stats, defaultTimePeriod }: Props) {
         </div>
       </div>
 
-      <div className="ml-[-30px] lg:px-[32px] lg:ml-0">
+      <div className="lg:px-[32px]">
         <GasFeeChart data={displayDataMap[timePeriod]} />
       </div>
     </>
