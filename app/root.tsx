@@ -32,7 +32,7 @@ export function links() {
     },
     {
       rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500&family=Noto+Sans+TC:wght@400;500;700&display=swap",
+      href: "https://fonts.googleapis.com/css2?family=Azeret+Mono&family=Noto+Sans+TC:wght@400;500;700&display=swap",
     },
     ...PRELOADED_ASSETS.map((asset) => ({
       rel: "preload",

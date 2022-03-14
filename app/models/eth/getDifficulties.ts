@@ -1,7 +1,7 @@
 import invariant from "tiny-invariant";
 import type { Difficulties } from "./types";
 
-function isValidStats(data: any): data is Difficulties {
+function isValidData(data: any): data is Difficulties {
   return (
     Array.isArray(data?.history3m) &&
     Array.isArray(data?.history6m) &&
@@ -16,7 +16,7 @@ async function getDifficulties() {
   );
 
   invariant(
-    isValidStats(data),
+    isValidData(data),
     `https://gasnow.gpumine.org/api/diff has bad data!`
   );
 

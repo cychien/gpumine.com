@@ -35,4 +35,19 @@ type Difficulties = {
   totalhistory: OneDifficultyRecord[];
 };
 
-export type { OneGasFeeRecord, Stats, OneDifficultyRecord, Difficulties };
+type OneGasHistoryRecord = {
+  time: number;
+  basefee: string;
+  tip: string;
+};
+
+type GasHistory = { history: OneGasHistoryRecord[] };
+
+export type {
+  OneGasFeeRecord,
+  Stats,
+  OneDifficultyRecord,
+  Difficulties,
+  OneGasHistoryRecord,
+  GasHistory,
+};

@@ -5,16 +5,18 @@ import Card from "~/components/Card";
 import fireSvg from "~/assets/icons/tools/fire.svg";
 import gasStationSvg from "~/assets/icons/tools/gas-station.svg";
 import ShiftBy from "~/components/ShiftBy";
-import { getDifficulties, getStats } from "~/models/eth";
+import { getDifficulties, getStats, getGasHistory } from "~/models/eth";
 import { toEth, toGWei } from "~/utils/calcutate";
 import GasFeeSection from "~/components/tools/GasFeeSection";
 import DifficultySection from "~/components/tools/DifficultySection";
+import GasHistorySection from "~/components/tools/GasHistorySection";
 
 async function getLoaderData() {
   const stats = await getStats();
   const difficulties = await getDifficulties();
+  const gasHistory = await getGasHistory();
 
-  return { stats, difficulties };
+  return { stats, difficulties, gasHistory };
 }
 
 export const loader: LoaderFunction = async () => {
@@ -29,7 +31,7 @@ type LoaderData = Awaited<ReturnType<typeof getLoaderData>>;
 
 function Tools() {
   const { t } = useTranslation("tools");
-  const { stats, difficulties } = useLoaderData<LoaderData>();
+  const { stats, difficulties, gasHistory } = useLoaderData<LoaderData>();
   const { currency } = useOutletContext<{ currency: string }>();
   const [searchParams] = useSearchParams();
 
@@ -113,7 +115,7 @@ function Tools() {
           </div>
         </Card>
 
-        <Card className="!px-[24px] !py-[22px] lg:!py-[28px]">
+        <Card className="!px-[10px] !py-[10px] lg:!px-[24px] lg:!py-[28px]">
           <GasFeeSection
             stats={stats}
             defaultTimePeriod={
@@ -123,7 +125,17 @@ function Tools() {
           />
         </Card>
 
-        <Card className="!px-[24px] !py-[22px] lg:!py-[28px]">
+        <Card className="!px-[10px] !py-[10px] lg:!px-[24px] lg:!py-[28px]">
+          <GasHistorySection
+            gasHistory={gasHistory}
+            defaultType={
+              (searchParams.get("gas_history_type") as "base-fee" | "tip") ||
+              "base-fee"
+            }
+          />
+        </Card>
+
+        <Card className="!px-[10px] !py-[10px] lg:!px-[24px] lg:!py-[28px]">
           <DifficultySection
             difficulties={difficulties}
             defaultTimePeriod={

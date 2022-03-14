@@ -85,11 +85,11 @@ function CustomTooltip({
         </div>
         <div className="flex justify-between text-[#22b573]">
           <div>{t("tx-fees")}</div>
-          <div>{toEth(payload?.[0].value as string)}</div>
+          <div>{toEth(payload?.[0].value as string, 2)}</div>
         </div>
         <div className="flex justify-between text-[#faa44f]">
           <div>{t("difficulty")}(T)</div>
-          <div>{toT(payload?.[1].value as string)}</div>
+          <div>{toT(payload?.[1].value as string, 2)}</div>
         </div>
       </div>
     );

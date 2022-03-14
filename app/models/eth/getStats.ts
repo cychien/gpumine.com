@@ -1,7 +1,7 @@
 import invariant from "tiny-invariant";
 import type { Stats } from "./types";
 
-function isValidStats(data: any): data is Stats {
+function isValidData(data: any): data is Stats {
   return (
     data?.basefee &&
     data?.totalburn &&
@@ -21,7 +21,7 @@ async function getStats() {
   );
 
   invariant(
-    isValidStats(data),
+    isValidData(data),
     `https://gasnow.gpumine.org/api/stats has bad data!`
   );
 
