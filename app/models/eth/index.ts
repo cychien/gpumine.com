@@ -1,11 +1,15 @@
 export * from "./getStats";
 export * from "./getDifficulties";
 export * from "./getGasHistory";
+
+export type { GasFeeTimePeriod, OneGasFeeRecord, Stats } from "./getStats";
 export type {
-  OneGasFeeRecord,
-  Stats,
+  DifficultyTimePeriod,
   OneDifficultyRecord,
   Difficulties,
+} from "./getDifficulties";
+export type {
+  GasHistoryType,
   OneGasHistoryRecord,
   GasHistory,
-} from "./types";
+} from "./getGasHistory";

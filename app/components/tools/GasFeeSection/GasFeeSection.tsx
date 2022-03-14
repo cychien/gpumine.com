@@ -2,32 +2,36 @@ import * as React from "react";
 import { useLocation } from "remix";
 import gasStationSvg from "~/assets/icons/tools/gas-station.svg";
 import AjaxLink from "~/components/AjaxLink";
-import type { Stats } from "~/models/eth";
+import type { Stats, GasFeeTimePeriod } from "~/models/eth";
 import { appendSearchObj, getSearchObj } from "~/utils/url";
 import GasFeeChart from "../GasFeeChart";
 import cx from "classnames";
 
-type TimePeriod = "24h" | "7d" | "1m";
+const TABS: { name: string; value: GasFeeTimePeriod }[] = [
+  { name: "24H", value: "24h" },
+  { name: "7D", value: "7d" },
+  { name: "1M", value: "1m" },
+];
 
 type Props = {
-  stats: Stats;
-  defaultTimePeriod: TimePeriod;
+  data: Pick<Stats, "gasfee24h" | "gasfee7d" | "gasfee1m">;
+  defaultTimePeriod: GasFeeTimePeriod;
 };
 
-function GasFeeSection({ stats, defaultTimePeriod }: Props) {
+function GasFeeSection({ data, defaultTimePeriod }: Props) {
   const { pathname, search } = useLocation();
   const [timePeriod, setTimePeriod] =
-    React.useState<TimePeriod>(defaultTimePeriod);
+    React.useState<GasFeeTimePeriod>(defaultTimePeriod);
 
   const displayDataMap = {
-    "24h": stats.gasfee24h,
-    "7d": stats.gasfee7d,
-    "1m": stats.gasfee1m,
+    "24h": data.gasfee24h,
+    "7d": data.gasfee7d,
+    "1m": data.gasfee1m,
   };
 
   return (
     <>
-      <div className="block lg:flex lg:flex-row lg:items-center lg:justify-between mb-[28px]">
+      <div className="block lg:flex lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center mb-[9px] lg:mb-0">
           <img
             src={gasStationSvg}
@@ -38,65 +42,62 @@ function GasFeeSection({ stats, defaultTimePeriod }: Props) {
           />
           <div className="text-primary-400 font-bold">Gas Fee(GWei)</div>
         </div>
-        <div className="flex">
-          <AjaxLink
-            className={cx(
-              "rounded-l-[5px] px-4 py-[9px] border-y border-l border-[#d6d6d6] text-xs font-medium",
-              timePeriod === "24h"
-                ? "bg-primary-400 text-white"
-                : "bg-white text-primary-400"
-            )}
-            url={appendSearchObj(pathname, {
-              ...getSearchObj(search),
-              stats_time_period: "24h",
-            })}
-            onClick={() => {
-              setTimePeriod("24h");
-            }}
-          >
-            24H
-          </AjaxLink>
-          <AjaxLink
-            className={cx(
-              "px-4 py-[9px] border border-[#d6d6d6] text-xs font-medium",
-              timePeriod === "7d"
-                ? "bg-primary-400 text-white"
-                : "bg-white text-primary-400"
-            )}
-            url={appendSearchObj(pathname, {
-              ...getSearchObj(search),
-              stats_time_period: "7d",
-            })}
-            onClick={() => {
-              setTimePeriod("7d");
-            }}
-          >
-            7D
-          </AjaxLink>
-          <AjaxLink
-            className={cx(
-              "rounded-r-[5px] px-4 py-[9px] border-y border-r border-[#d6d6d6] text-xs font-medium",
-              timePeriod === "1m"
-                ? "bg-primary-400 text-white"
-                : "bg-white text-primary-400"
-            )}
-            url={appendSearchObj(pathname, {
-              ...getSearchObj(search),
-              stats_time_period: "1m",
-            })}
-            onClick={() => {
-              setTimePeriod("1m");
-            }}
-          >
-            1M
-          </AjaxLink>
+        <div className="inline-flex rounded-[5px] border border-[#d6d6d6] overflow-hidden">
+          {TABS.map((tab, index) => (
+            <Tab
+              key={tab.value}
+              isActive={timePeriod === tab.value}
+              url={appendSearchObj(pathname, {
+                ...getSearchObj(search),
+                gas_fee_time_period: tab.value,
+              })}
+              onClick={() => {
+                setTimePeriod(tab.value);
+              }}
+              className={
+                index < TABS.length - 1 ? "border-r border-[#d6d6d6]" : ""
+              }
+            >
+              {tab.name}
+            </Tab>
+          ))}
         </div>
       </div>
 
-      <div className="lg:px-[32px]">
+      <div className="min-h-[28px] h-[28px]" />
+
+      <div className="ml-[-16px] lg:ml-0 lg:px-[32px]">
         <GasFeeChart data={displayDataMap[timePeriod]} />
       </div>
     </>
+  );
+}
+
+function Tab({
+  isActive,
+  url,
+  onClick,
+  children,
+  className,
+}: {
+  isActive: boolean;
+  url: string;
+  onClick: () => void;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <AjaxLink
+      className={cx(
+        "px-4 py-[9px] text-xs font-medium",
+        isActive ? "bg-primary-400 text-white" : "bg-white text-primary-400",
+        className
+      )}
+      url={url}
+      onClick={onClick}
+    >
+      {children}
+    </AjaxLink>
   );
 }
 

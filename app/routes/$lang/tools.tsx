@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { LoaderFunction, useOutletContext, useSearchParams } from "remix";
 import { useLoaderData } from "remix";
@@ -10,6 +11,11 @@ import { toEth, toGWei } from "~/utils/calcutate";
 import GasFeeSection from "~/components/tools/GasFeeSection";
 import DifficultySection from "~/components/tools/DifficultySection";
 import GasHistorySection from "~/components/tools/GasHistorySection";
+import type {
+  GasFeeTimePeriod,
+  DifficultyTimePeriod,
+  GasHistoryType,
+} from "~/models/eth";
 
 async function getLoaderData() {
   const stats = await getStats();
@@ -23,6 +29,7 @@ export const loader: LoaderFunction = async () => {
   try {
     return await getLoaderData();
   } catch (err) {
+    console.log(err);
     return { error: "Something error" };
   }
 };
@@ -52,24 +59,18 @@ function Tools() {
       <div className="min-h-[30px] h-[30px]" />
 
       <div className="space-y-5">
-        <Card className="min-h-[100px] flex items-center justify-center !px-[14px] !py-[20px]">
+        <Card className="flex items-center justify-center min-h-[100px]">
           <div className="flex items-center">
-            <ShiftBy y={2} className="self-start">
-              <img
-                src={fireSvg}
-                alt="fire icon"
-                className="min-w-[40px] min-h-[40px]"
-                width={40}
-                height={40}
-              />
+            <ShiftBy y={2} className="self-start min-w-[40px] min-h-[40px]">
+              <img src={fireSvg} alt="fire icon" width={40} height={40} />
             </ShiftBy>
             <div className="text-default font-bold">
               <div
                 dangerouslySetInnerHTML={{
                   __html: t("total-burned", {
-                    ethBurnedHtml: `<span class='text-primary-400'><span class='font-number'>${toEth(
+                    ethBurnedHtml: `<span class='text-primary-400'>${toEth(
                       stats.totalburn
-                    )}</span> ETH</span>`,
+                    )} ETH</span>`,
                     fiatHtml: `<span class='ml-1 text-xs text-gray-500 font-medium whitespace-nowrap'>${stats.eth[currencyKey]} ${currency}</span>`,
                   }),
                 }}
@@ -78,12 +79,12 @@ function Tools() {
           </div>
         </Card>
 
-        <Card className="min-h-[160px] flex items-center !px-[14px] !py-[20px]">
-          <div className="grid grid-cols-2 w-full gap-y-[20px] lg:grid-cols-4 lg:gay-y-0 lg:justify-between lg:px-[90px]">
+        <Card className="flex items-center min-h-[160px]">
+          <div className="grid grid-cols-2 gap-y-[20px] w-full lg:grid-cols-4 lg:gay-y-0 lg:justify-between lg:px-[90px]">
             <div>
               <StatsColLabel icon={gasStationSvg} name={t("base-fee")} />
               <div className="min-h-[16px] h-[16px]" />
-              <StatsColData data={toGWei(stats.basefee)} />
+              <StatsColData data={toGWei(stats.basefee, 1)} />
             </div>
             <div>
               <StatsColLabel
@@ -92,7 +93,7 @@ function Tools() {
                 subText="(10mins)"
               />
               <div className="min-h-[16px] h-[16px]" />
-              <StatsColData data={toEth(stats.burn10m)} />
+              <StatsColData data={toEth(stats.burn10m, 2)} />
             </div>
             <div>
               <StatsColLabel
@@ -101,7 +102,7 @@ function Tools() {
                 subText="(1h)"
               />
               <div className="min-h-[16px] h-[16px]" />
-              <StatsColData data={toEth(stats.burn1h)} />
+              <StatsColData data={toEth(stats.burn1h, 2)} />
             </div>
             <div>
               <StatsColLabel
@@ -110,43 +111,45 @@ function Tools() {
                 subText="(24h)"
               />
               <div className="min-h-[16px] h-[16px]" />
-              <StatsColData data={toEth(stats.burn24h)} />
+              <StatsColData data={toEth(stats.burn24h, 2)} />
             </div>
           </div>
         </Card>
 
-        <Card className="!px-[10px] !py-[10px] lg:!px-[24px] lg:!py-[28px]">
+        <ChartCard>
           <GasFeeSection
-            stats={stats}
+            data={{
+              gasfee24h: stats.gasfee24h,
+              gasfee7d: stats.gasfee7d,
+              gasfee1m: stats.gasfee1m,
+            }}
             defaultTimePeriod={
-              (searchParams.get("stats_time_period") as "24h" | "7d" | "1m") ||
+              (searchParams.get("gas_fee_time_period") as GasFeeTimePeriod) ||
               "24h"
             }
           />
-        </Card>
+        </ChartCard>
 
-        <Card className="!px-[10px] !py-[10px] lg:!px-[24px] lg:!py-[28px]">
+        <ChartCard>
           <GasHistorySection
-            gasHistory={gasHistory}
+            data={gasHistory}
             defaultType={
-              (searchParams.get("gas_history_type") as "base-fee" | "tip") ||
+              (searchParams.get("gas_history_type") as GasHistoryType) ||
               "base-fee"
             }
           />
-        </Card>
+        </ChartCard>
 
-        <Card className="!px-[10px] !py-[10px] lg:!px-[24px] lg:!py-[28px]">
+        <ChartCard>
           <DifficultySection
-            difficulties={difficulties}
+            data={difficulties}
             defaultTimePeriod={
-              (searchParams.get("difficulty_time_period") as
-                | "3m"
-                | "6m"
-                | "1y"
-                | "all") || "3m"
+              (searchParams.get(
+                "difficulty_time_period"
+              ) as DifficultyTimePeriod) || "3m"
             }
           />
-        </Card>
+        </ChartCard>
       </div>
     </main>
   );
@@ -187,15 +190,25 @@ function StatsColData({
 }) {
   return (
     <div className="pl-[44px]">
-      <div className="mb-1 font-number text-xl text-[#222222]">{data}</div>
+      <div className="mb-1 text-xl text-[#222222] font-medium">{data}</div>
       {inFiat && currency && (
         <div className="text-gray-500 text-xs font-medium">
-          <span className="font-number">{inFiat}</span>
+          <span>{inFiat}</span>
           <span>{currency}</span>
         </div>
       )}
     </div>
   );
+}
+
+function ChartCard({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return <Card className={className} children={children} />;
 }
 
 export default Tools;

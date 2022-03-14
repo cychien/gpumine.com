@@ -1,5 +1,14 @@
 import invariant from "tiny-invariant";
-import type { GasHistory } from "./types";
+
+type GasHistoryType = "base-fee" | "tip";
+
+type OneGasHistoryRecord = {
+  time: number;
+  basefee: string;
+  tip: string;
+};
+
+type GasHistory = { history: OneGasHistoryRecord[] };
 
 function isValidData(data: any): data is GasHistory {
   return Array.isArray(data?.history);
@@ -19,3 +28,4 @@ async function getGasHistory() {
 }
 
 export { getGasHistory };
+export type { GasHistoryType, OneGasHistoryRecord, GasHistory };

@@ -30,7 +30,7 @@ function GasFeeChart({ data }: Props) {
         <XAxis
           xAxisId={0}
           dataKey="time"
-          dy={16}
+          dy={12}
           tick={{ fill: "#2b62f6", fontSize: "14px", fontWeight: "500" }}
           tickFormatter={(value) => format(value * 1000, "HH:mm")}
           stroke="#3569F5"
@@ -41,13 +41,13 @@ function GasFeeChart({ data }: Props) {
           axisLine={false}
           tickLine={false}
           dataKey="time"
-          dy={6}
+          dy={2}
           tick={{ fill: "#2b62f6", fontSize: "14px", fontWeight: "500" }}
           tickFormatter={(value) => format(value * 1000, "MM-dd")}
         />
         <YAxis
           tick={{ fill: "#2b62f6", fontSize: "14px", fontWeight: "500" }}
-          tickFormatter={(value) => toGWei(value)}
+          tickFormatter={(value) => toGWei(value, 1)}
           axisLine={false}
         />
         <Bar dataKey="basefee" stackId="gas-fee" fill="#2b62f6" />
@@ -68,7 +68,7 @@ function CustomTooltip({
     const time = Number(label);
 
     return (
-      <div className="px-3 py-4 rounded-[8px] border border-primary-400 bg-white text-[#434343] w-[180px] text-sm space-y-1 font-medium">
+      <div className="p-3 rounded-[8px] border border-primary-400 bg-white text-[#434343] w-[180px] text-sm space-y-1 font-medium">
         <div className="flex justify-between">
           <div>{format(time * 1000, "yyyy-MM-dd")}</div>
           <div>{format(time * 1000, "HH:mm")}</div>

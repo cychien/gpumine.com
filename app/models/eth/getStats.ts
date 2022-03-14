@@ -1,5 +1,30 @@
 import invariant from "tiny-invariant";
-import type { Stats } from "./types";
+
+type GasFeeTimePeriod = "24h" | "7d" | "1m";
+
+type OneGasFeeRecord = {
+  time: number;
+  basefee: string;
+  tip: string;
+};
+
+type Stats = {
+  basefee: string;
+  totalburn: string;
+  burn10m: string;
+  burn1h: string;
+  burn24h: string;
+  gasfee24h: OneGasFeeRecord[];
+  gasfee7d: OneGasFeeRecord[];
+  gasfee1m: OneGasFeeRecord[];
+  eth: {
+    usd: number;
+    twd: number;
+    cny: number;
+    hkd: number;
+    gbp: number;
+  };
+};
 
 function isValidData(data: any): data is Stats {
   return (
@@ -29,3 +54,4 @@ async function getStats() {
 }
 
 export { getStats };
+export type { GasFeeTimePeriod, OneGasFeeRecord, Stats };

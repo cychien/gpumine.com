@@ -48,7 +48,7 @@ function DifficultyChart({ data }: Props) {
           yAxisId={1}
           dataKey="tip"
           tick={{ fill: "#2b62f6", fontSize: "14px", fontWeight: "500" }}
-          tickFormatter={(value) => toEth(value)}
+          tickFormatter={(value) => toEth(value, 1)}
           orientation="right"
           stroke="#3569F5"
           strokeWidth={2}
@@ -78,7 +78,7 @@ function CustomTooltip({
     const time = Number(label);
 
     return (
-      <div className="px-3 py-4 rounded-[8px] border border-primary-400 bg-white text-[#434343] w-[185px] text-sm space-y-1 font-medium">
+      <div className="p-3 rounded-[8px] border border-primary-400 bg-white text-[#434343] w-[185px] text-sm space-y-1 font-medium">
         <div className="flex justify-between">
           <div>{format(time * 1000, "yyyy-MM-dd")}</div>
           <div>{format(time * 1000, "HH:mm")}</div>
@@ -102,7 +102,7 @@ function CustomLegend() {
   const { t } = useTranslation("tools");
 
   return (
-    <div className="flex items-center space-x-[30px] justify-center mt-[22px]">
+    <div className="flex items-center space-x-[30px] justify-center mt-10">
       <div className="flex space-x-3 items-center">
         <ShiftBy y={1}>
           <div className="w-[28px] h-[8px] bg-[#22b573] rounded-full" />

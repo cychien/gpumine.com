@@ -1,5 +1,19 @@
 import invariant from "tiny-invariant";
-import type { Difficulties } from "./types";
+
+type DifficultyTimePeriod = "3m" | "6m" | "1y" | "all";
+
+type OneDifficultyRecord = {
+  time: number;
+  difficulty: string;
+  tip: string;
+};
+
+type Difficulties = {
+  history3m: OneDifficultyRecord[];
+  history6m: OneDifficultyRecord[];
+  history1y: OneDifficultyRecord[];
+  totalhistory: OneDifficultyRecord[];
+};
 
 function isValidData(data: any): data is Difficulties {
   return (
@@ -24,3 +38,4 @@ async function getDifficulties() {
 }
 
 export { getDifficulties };
+export type { DifficultyTimePeriod, OneDifficultyRecord, Difficulties };

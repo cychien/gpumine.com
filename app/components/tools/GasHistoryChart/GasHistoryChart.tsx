@@ -1,4 +1,4 @@
-import type { OneGasHistoryRecord } from "~/models/eth";
+import type { GasHistoryType, OneGasHistoryRecord } from "~/models/eth";
 import { toGWei } from "~/utils/calcutate";
 import eachDayOfInterval from "date-fns/eachDayOfInterval";
 import formatISO from "date-fns/formatISO";
@@ -33,11 +33,9 @@ const GRADIENTS = {
   },
 };
 
-type HistoryType = "base-fee" | "tip";
-
 type Props = {
   data: OneGasHistoryRecord[];
-  historyType: HistoryType;
+  historyType: GasHistoryType;
 };
 
 function GasHistoryChart({ data, historyType }: Props) {
@@ -48,8 +46,8 @@ function GasHistoryChart({ data, historyType }: Props) {
 
   return (
     <div>
-      <div className="grid grid-rows-[repeat(24,_minmax(0,_1fr))] grid-cols-7 grid-flow-col border-l-2 border-l-primary-500 border-b-2 border-b-primary-500 ml-8 lg:ml-6 mb-16 relative bg-[#dedede] gap-[1px]">
-        <div className="absolute inset-y-0 left-0 -translate-x-[calc(100%+12px)] -translate-y-[7px] space-y-[19px] lg:space-y-[26px]">
+      <div className="grid grid-rows-[repeat(24,_minmax(0,_1fr))] grid-cols-7 grid-flow-col border-l-2 border-l-primary-500 border-b-2 border-b-primary-500 ml-8 mb-16 relative lg:ml-6">
+        <div className="absolute inset-y-0 left-0 -translate-x-[calc(100%+12px)] -translate-y-[7px] space-y-[17px] lg:space-y-[24px]">
           {DAY_TIME_PERIODS.map((period) => (
             <div
               key={period}
@@ -60,7 +58,7 @@ function GasHistoryChart({ data, historyType }: Props) {
             </div>
           ))}
         </div>
-        <div className="absolute inset-x-0 bottom-0 flex justify-between lg:justify-around translate-y-[calc(100%+12px)]">
+        <div className="absolute inset-x-0 bottom-0 flex justify-between translate-y-[calc(100%+12px)] lg:justify-around">
           {last7d.map((day, index) => (
             <div
               key={formatISO(day)}
@@ -193,7 +191,7 @@ const CellColors = {
 type CellProps = {
   time: number;
   data: string;
-  type: HistoryType;
+  type: GasHistoryType;
 };
 
 function Cell({ time, data, type }: CellProps) {
@@ -201,7 +199,7 @@ function Cell({ time, data, type }: CellProps) {
     <Popover className="relative group">
       <Popover.Button className="block w-full">
         <div
-          className="flex items-center justify-center text-[11px] font-mono text-default-light lg:text-sm dark:hidden"
+          className="shadow-inner flex items-center justify-center text-[11px] font-mono text-default-light lg:text-sm dark:hidden"
           style={{ backgroundColor: CellColors.light[type](Number(data)) }}
         >
           {data}
@@ -216,7 +214,7 @@ function Cell({ time, data, type }: CellProps) {
 
       <Popover.Panel
         static
-        className="absolute translate-y-[4px] z-10 hidden group-hover:block px-3 py-2 rounded-[8px] border border-primary-400 bg-white text-[#434343] w-[160px] text-sm space-y-1 font-medium"
+        className="absolute translate-y-[4px] z-10 hidden group-hover:block p-3 rounded-[8px] border border-primary-400 bg-white text-[#434343] w-[160px] text-sm space-y-1 font-medium"
       >
         <div className="flex justify-between">
           <span>{format(time, "yyyy-MM-dd")}</span>
