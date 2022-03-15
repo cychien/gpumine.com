@@ -16,6 +16,8 @@ import Footer from "./components/Footer";
 import { detectCurrencyOnServer } from "./utils/currency";
 import PRELOADED_ASSETS from "./constants/preloaded-assets";
 import { ThemeProvider } from "./utils/theme";
+import Background from "./components/Background";
+import QuickActions from "./components/QuickActions";
 
 export const meta: MetaFunction = () => {
   return { title: "GPUMINE POOL" };
@@ -84,15 +86,22 @@ export default function App() {
         <script dangerouslySetInnerHTML={{ __html: initThemeScript }} />
       </head>
       <body className="bg-primary transition-colors">
-        <div className="root">
+        <div className="root relative">
           <ThemeProvider>
-            <div className="sticky top-0 z-10">
-              <Navbar />
+            <Background />
+            <div className="isolate">
+              <div className="sticky top-0 z-10">
+                <Navbar />
+              </div>
+              <Outlet context={{ currency: localCurrency }} />
+              <div className="mt-[50px] lg:mt-[100px]">
+                <Footer
+                  currency={localCurrency}
+                  setCurrency={setLocalCurrency}
+                />
+              </div>
             </div>
-            <Outlet context={{ currency: localCurrency }} />
-            <div className="mt-[50px] lg:mt-[100px]">
-              <Footer currency={localCurrency} setCurrency={setLocalCurrency} />
-            </div>
+            <QuickActions />
           </ThemeProvider>
         </div>
         {/* <ScrollRestoration /> */}

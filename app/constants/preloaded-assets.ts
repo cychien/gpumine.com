@@ -8,6 +8,10 @@ import logoFooterDarkEN from "~/assets/images/logo-footer-dark-en.png";
 import logoFooterDarkTW from "~/assets/images/logo-footer-dark-tw.png";
 import logoMobile from "~/assets/images/logo-mobile.png";
 import logoMobileDark from "~/assets/images/logo-mobile-dark.png";
+import bgDesktopLight from "~/assets/images/bg-desktop-light.webp";
+import bgDesktopDark from "~/assets/images/bg-desktop-dark.webp";
+import bgMobileLight from "~/assets/images/bg-mobile-light.png";
+import bgMobileDark from "~/assets/images/bg-mobile-dark.png";
 
 const PRELOADED_ASSETS = [
   { href: logoHeaderEN, as: "image" },
@@ -20,6 +24,10 @@ const PRELOADED_ASSETS = [
   { href: logoFooterDarkTW, as: "image" },
   { href: logoMobile, as: "image" },
   { href: logoMobileDark, as: "image" },
+  { href: bgDesktopLight, as: "image" },
+  { href: bgDesktopDark, as: "image" },
+  { href: bgMobileLight, as: "image" },
+  { href: bgMobileDark, as: "image" },
 ];
 
 export default PRELOADED_ASSETS;
