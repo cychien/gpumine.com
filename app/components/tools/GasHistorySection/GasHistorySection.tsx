@@ -2,11 +2,11 @@ import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "remix";
 import type { GasHistory, GasHistoryType } from "~/models/eth";
-import listSvg from "~/assets/icons/tools/list.svg";
 import AjaxLink from "~/components/AjaxLink";
 import cx from "classnames";
 import { appendSearchObj, getSearchObj } from "~/utils/url";
 import GasHistoryChart from "../GasHistoryChart";
+import svgSprites from "~/assets/icons/tools/sprites.svg";
 
 const TABS: { name: string; value: GasHistoryType }[] = [
   { name: "Base fee", value: "base-fee" },
@@ -28,18 +28,16 @@ function GasHistorySection({ data, defaultType }: Props) {
     <>
       <div className="block lg:flex lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center mb-[9px] lg:mb-0">
-          <img
-            src={listSvg}
-            alt="icon"
-            className="min-w-[40px] min-h-[40px] mr-2"
-            width={40}
-            height={40}
-          />
-          <div className="text-primary-400 font-bold">
+          <span className="mr-2">
+            <svg className="min-w-[40px] min-h-[40px] w-[40px] h-[40px] text-primary-400 dark:text-primary-200">
+              <use href={`${svgSprites}#list`} />
+            </svg>
+          </span>
+          <div className="text-primary-400 dark:text-[#5783f7] font-bold">
             {t("gas-price-history")}
           </div>
         </div>
-        <div className="inline-flex px-[10px] py-[5px] rounded-full space-x-1 border border-[#d6d6d6] bg-[#fafafa] overflow-hidden">
+        <div className="inline-flex px-[10px] py-[5px] rounded-full space-x-1 border border-[#d6d6d6] bg-[#fafafa] dark:bg-[transparent] overflow-hidden">
           {TABS.map((tab) => (
             <Tab
               key={tab.value}
@@ -85,8 +83,8 @@ function Tab({
       className={cx(
         "text-xs font-medium px-[10px] py-[6.5px] whitespace-nowrap",
         isActive
-          ? "bg-primary-400 text-white rounded-full"
-          : "text-gray-[#7c7c7c]",
+          ? "bg-primary-400 dark:bg-primary-200 text-white rounded-full"
+          : "text-gray-[#7c7c7c] dark:text-white",
         className
       )}
       url={url}

@@ -1,11 +1,12 @@
 import * as React from "react";
 import { useLocation } from "remix";
-import gasStationSvg from "~/assets/icons/tools/gas-station.svg";
 import AjaxLink from "~/components/AjaxLink";
 import type { Stats, GasFeeTimePeriod } from "~/models/eth";
 import { appendSearchObj, getSearchObj } from "~/utils/url";
 import GasFeeChart from "../GasFeeChart";
 import cx from "classnames";
+import gasStationSvg from "~/assets/icons/tools/gas-station.svg";
+import gasStationDarkSvg from "~/assets/icons/tools/gas-station-dark.svg";
 
 const TABS: { name: string; value: GasFeeTimePeriod }[] = [
   { name: "24H", value: "24h" },
@@ -33,14 +34,13 @@ function GasFeeSection({ data, defaultTimePeriod }: Props) {
     <>
       <div className="block lg:flex lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center mb-[9px] lg:mb-0">
-          <img
-            src={gasStationSvg}
-            alt="icon"
-            className="min-w-[40px] min-h-[40px] mr-2"
-            width={40}
-            height={40}
-          />
-          <div className="text-primary-400 font-bold">Gas Fee(GWei)</div>
+          <span className="mr-2 min-w-[40px] min-h-[40px] w-[40px] h-[40px]">
+            <img src={gasStationSvg} alt="" className="block dark:hidden" />
+            <img src={gasStationDarkSvg} alt="" className="hidden dark:block" />
+          </span>
+          <div className="text-primary-400 dark:text-[#5783f7] font-bold">
+            Gas Fee(GWei)
+          </div>
         </div>
         <div className="inline-flex rounded-[5px] border border-[#d6d6d6] overflow-hidden">
           {TABS.map((tab, index) => (
@@ -90,7 +90,9 @@ function Tab({
     <AjaxLink
       className={cx(
         "px-4 py-[9px] text-xs font-medium",
-        isActive ? "bg-primary-400 text-white" : "bg-white text-primary-400",
+        isActive
+          ? "bg-primary-400 dark:bg-primary-200 text-white"
+          : "text-primary-400 dark:text-primary-200",
         className
       )}
       url={url}

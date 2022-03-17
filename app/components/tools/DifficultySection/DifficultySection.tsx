@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useLocation } from "remix";
 import type { Difficulties, DifficultyTimePeriod } from "~/models/eth";
-import dashboardSvg from "~/assets/icons/tools/dashboard.svg";
 import { useTranslation } from "react-i18next";
 import AjaxLink from "~/components/AjaxLink";
 import cx from "classnames";
 import { appendSearchObj, getSearchObj } from "~/utils/url";
 import DifficultyChart from "../DifficultyChart";
+import svgSprites from "~/assets/icons/tools/sprites.svg";
 
 const TABS: { name: string; value: DifficultyTimePeriod }[] = [
   { name: "3M", value: "3m" },
@@ -37,14 +37,12 @@ function DifficultySection({ data, defaultTimePeriod }: Props) {
     <>
       <div className="block lg:flex lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center mb-[9px] lg:mb-0">
-          <img
-            src={dashboardSvg}
-            alt="icon"
-            className="min-w-[40px] min-h-[40px] mr-2"
-            width={40}
-            height={40}
-          />
-          <div className="text-primary-400 font-bold">
+          <span className="mr-2">
+            <svg className="min-w-[40px] min-h-[40px] w-[40px] h-[40px] text-primary-400 dark:text-primary-200">
+              <use href={`${svgSprites}#dashboard`} />
+            </svg>
+          </span>
+          <div className="text-primary-400 dark:text-[#5783f7] font-bold">
             {t("tx-fees-and-difficulty")}
           </div>
         </div>
@@ -96,7 +94,9 @@ function Tab({
     <AjaxLink
       className={cx(
         "px-4 py-[9px] text-xs font-medium",
-        isActive ? "bg-primary-400 text-white" : "bg-white text-primary-400",
+        isActive
+          ? "bg-primary-400 dark:bg-primary-200 text-white"
+          : "text-primary-400 dark:text-primary-200",
         className
       )}
       url={url}

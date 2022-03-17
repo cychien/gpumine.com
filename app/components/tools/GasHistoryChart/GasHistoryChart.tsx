@@ -46,12 +46,12 @@ function GasHistoryChart({ data, historyType }: Props) {
 
   return (
     <div>
-      <div className="grid grid-rows-[repeat(24,_minmax(0,_1fr))] grid-cols-7 grid-flow-col border-l-2 border-l-primary-500 border-b-2 border-b-primary-500 ml-8 mb-16 relative lg:ml-6">
+      <div className="grid grid-rows-[repeat(24,_minmax(0,_1fr))] grid-cols-7 grid-flow-col border-l-2 border-l-primary-500 dark:border-l-primary-200 border-b-2 border-b-primary-500 dark:border-b-primary-200 ml-8 mb-16 relative lg:ml-6">
         <div className="absolute inset-y-0 left-0 -translate-x-[calc(100%+12px)] -translate-y-[7px] space-y-[17px] lg:space-y-[24px]">
           {DAY_TIME_PERIODS.map((period) => (
             <div
               key={period}
-              className="text-xs font-medium font-mono text-primary-400"
+              className="text-xs font-medium font-mono text-primary-400 dark:text-primary-200"
             >
               <span>{period}</span>
               <span className="hidden lg:inline">:00</span>
@@ -63,7 +63,7 @@ function GasHistoryChart({ data, historyType }: Props) {
             <div
               key={formatISO(day)}
               className={cx(
-                "text-xs font-medium font-mono text-primary-400 lg:block",
+                "text-xs font-medium font-mono text-primary-400 dark:text-primary-200 lg:block",
                 {
                   hidden: index !== 0 && index !== last7d.length - 1,
                 }
@@ -94,7 +94,7 @@ function GasHistoryChart({ data, historyType }: Props) {
               GRADIENTS.light[historyType]
             )}
           />
-          <div className="flex justify-between text-xs font-medium text-[#2a61f6]">
+          <div className="flex justify-between text-xs font-medium text-[#2a61f6] dark:text-primary-200">
             <div>0</div>
             <div>300</div>
             <div>500</div>
@@ -214,14 +214,14 @@ function Cell({ time, data, type }: CellProps) {
 
       <Popover.Panel
         static
-        className="absolute translate-y-[4px] z-10 hidden group-hover:block p-3 rounded-[8px] border border-primary-400 bg-white text-[#434343] w-[160px] text-sm space-y-1 font-medium"
+        className="absolute translate-y-[4px] z-10 hidden group-hover:block p-3 rounded-[8px] border border-primary-400 dark:border-primary-200 bg-white dark:bg-[rgba(41,40,41,0.8)] text-[#434343] dark:text-white w-[160px] text-sm space-y-1 font-medium"
       >
         <div className="flex justify-between">
           <span>{format(time, "yyyy-MM-dd")}</span>
           <span>{format(time, "HH:mm")}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-primary-400">
+          <span className="text-primary-400 dark:text-primary-200">
             {type === "base-fee" ? "Gas price" : "Tip"}
           </span>
           <span>{data}GWei</span>

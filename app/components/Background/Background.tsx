@@ -17,7 +17,11 @@ function Background() {
         <img alt="" src={bgDesktopDark} />
       </picture>
       <img className="block dark:hidden lg:hidden" src={bgMobileLight} alt="" />
-      <img className="hidden dark:block lg:hidden" src={bgMobileDark} alt="" />
+      <img
+        className="hidden dark:block lg:hidden dark:lg:hidden"
+        src={bgMobileDark}
+        alt=""
+      />
     </div>
   );
 }

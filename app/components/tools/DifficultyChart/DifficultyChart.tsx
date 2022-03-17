@@ -18,39 +18,58 @@ import format from "date-fns/format";
 import { toEth, toT } from "~/utils/calcutate";
 import { useTranslation } from "react-i18next";
 import ShiftBy from "~/components/ShiftBy";
+import { useTheme } from "~/utils/theme";
 
 type Props = {
   data: OneDifficultyRecord[];
 };
 
 function DifficultyChart({ data }: Props) {
+  const { theme } = useTheme();
+
   return (
     <ResponsiveContainer width="100%" height={400}>
       <LineChart data={data}>
-        <CartesianGrid vertical={false} stroke="#AAC0FB" strokeWidth="2px" />
+        <CartesianGrid
+          vertical={false}
+          stroke={theme === "light" ? "#AAC0FB" : "rgba(100,133,221, 40%)"}
+          strokeWidth="2px"
+        />
         <XAxis
           dataKey="time"
           dy={16}
-          tick={{ fill: "#2b62f6", fontSize: "14px", fontWeight: "500" }}
+          tick={{
+            fill: theme === "light" ? "#2b62f6" : "#6485dd",
+            fontSize: "14px",
+            fontWeight: "500",
+          }}
           tickFormatter={(value) => format(value * 1000, "yyyy-MM-dd")}
-          stroke="#3569F5"
+          stroke={theme === "light" ? "#3569f5" : "#6485dd"}
           strokeWidth={2}
         />
         <YAxis
           yAxisId={0}
           dataKey="difficulty"
-          tick={{ fill: "#2b62f6", fontSize: "14px", fontWeight: "500" }}
+          tick={{
+            fill: theme === "light" ? "#2b62f6" : "#6485dd",
+            fontSize: "14px",
+            fontWeight: "500",
+          }}
           tickFormatter={(value) => toT(value)}
-          stroke="#3569F5"
+          stroke={theme === "light" ? "#3569f5" : "#6485dd"}
           strokeWidth={2}
         />
         <YAxis
           yAxisId={1}
           dataKey="tip"
-          tick={{ fill: "#2b62f6", fontSize: "14px", fontWeight: "500" }}
+          tick={{
+            fill: theme === "light" ? "#2b62f6" : "#6485dd",
+            fontSize: "14px",
+            fontWeight: "500",
+          }}
           tickFormatter={(value) => toEth(value, 1)}
           orientation="right"
-          stroke="#3569F5"
+          stroke={theme === "light" ? "#3569f5" : "#6485dd"}
           strokeWidth={2}
         />
         <Line dataKey="tip" stroke="#22b573" strokeWidth={4} yAxisId={1} />
@@ -78,7 +97,7 @@ function CustomTooltip({
     const time = Number(label);
 
     return (
-      <div className="p-3 rounded-[8px] border border-primary-400 bg-white text-[#434343] w-[185px] text-sm space-y-1 font-medium">
+      <div className="p-3 rounded-[8px] border border-primary-400 dark:border-primary-200 bg-white dark:bg-[rgba(41,40,41,0.8)] text-[#434343] dark:text-white w-[185px] text-sm space-y-1 font-medium">
         <div className="flex justify-between">
           <div>{format(time * 1000, "yyyy-MM-dd")}</div>
           <div>{format(time * 1000, "HH:mm")}</div>

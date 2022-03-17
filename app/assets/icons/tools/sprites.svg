@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <symbol id='dashboard' viewBox="0 0 40 40">
+      <g transform="translate(4 4)">
+        <g stroke-miterlimit="10" stroke-width="3px" stroke="currentColor" fill="transparent">
+          <rect stroke="none" width="32" height="32" rx="2.5" />
+          <rect fill="none" x="1.5" y="1.5" width="29" height="29" rx="1" />
+        </g>
+      </g>
+      <path fill="currentColor"
+        d="M23.7,8.064a2.07,2.07,0,0,1-2.064,2.064,1.754,1.754,0,0,1-.526-.072l-3.673,3.663a1.823,1.823,0,0,1,.072.537,2.064,2.064,0,1,1-4.127,0,1.823,1.823,0,0,1,.072-.537l-2.631-2.631a2.029,2.029,0,0,1-1.073,0L5.055,15.792a1.754,1.754,0,0,1,.072.526,2.064,2.064,0,1,1-2.064-2.064,1.754,1.754,0,0,1,.526.072L8.3,9.632A1.823,1.823,0,0,1,8.223,9.1a2.064,2.064,0,0,1,4.127,0,1.823,1.823,0,0,1-.072.537l2.631,2.631a2.029,2.029,0,0,1,1.073,0L19.646,8.59a1.754,1.754,0,0,1-.072-.526,2.064,2.064,0,1,1,4.127,0Z"
+        transform="translate(8 8)" />
+    </symbol>
+    <symbol id='list' viewBox="0 0 40 40">
+      <g transform="translate(4 4)">
+        <g fill="transparent" stroke-miterlimit='10' stroke-width="3px" stroke="currentColor">
+          <rect stroke="none" width="32" height="32" rx="2.5" />
+          <rect fill="none" x="1.5" y="1.5" width="29" height="29" rx="1" />
+        </g>
+      </g>
+      <g transform="translate(-133 -1751.5)">
+        <g transform="translate(0.5 -1.5)">
+          <g transform="translate(0 -0.5)">
+            <path stroke="currentColor" fill="none" stroke-linecap="round" stroke-width="2px" d="M0,0H16"
+              transform="translate(144.5 1780)" />
+            <line stroke="currentColor" fill="none" stroke-linecap="round" stroke-width="2px" x2="16"
+              transform="translate(144.5 1774)" />
+            <line stroke="currentColor" fill="none" stroke-linecap="round" stroke-width="2px" x2="16"
+              transform="translate(144.5 1768)" />
+          </g>
+        </g>
+      </g>
+    </symbol>
+  </defs>
+</svg>

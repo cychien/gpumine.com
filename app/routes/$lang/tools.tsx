@@ -3,8 +3,6 @@ import { useTranslation } from "react-i18next";
 import { LoaderFunction, useOutletContext, useSearchParams } from "remix";
 import { useLoaderData } from "remix";
 import Card from "~/components/Card";
-import fireSvg from "~/assets/icons/tools/fire.svg";
-import gasStationSvg from "~/assets/icons/tools/gas-station.svg";
 import ShiftBy from "~/components/ShiftBy";
 import { getDifficulties, getStats, getGasHistory } from "~/models/eth";
 import { toEth, toGWei } from "~/utils/calcutate";
@@ -16,6 +14,10 @@ import type {
   DifficultyTimePeriod,
   GasHistoryType,
 } from "~/models/eth";
+import gasStationSvg from "~/assets/icons/tools/gas-station.svg";
+import gasStationDarkSvg from "~/assets/icons/tools/gas-station-dark.svg";
+import fireSvg from "~/assets/icons/tools/fire.svg";
+import fireDarkSvg from "~/assets/icons/tools/fire-dark.svg";
 
 async function getLoaderData() {
   const stats = await getStats();
@@ -62,16 +64,29 @@ function Tools() {
         <Card className="flex items-center justify-center min-h-[100px]">
           <div className="flex items-center">
             <ShiftBy y={2} className="self-start min-w-[40px] min-h-[40px]">
-              <img src={fireSvg} alt="fire icon" width={40} height={40} />
+              <img
+                src={fireSvg}
+                alt=""
+                width={40}
+                height={40}
+                className="block dark:hidden"
+              />
+              <img
+                src={fireDarkSvg}
+                alt=""
+                width={40}
+                height={40}
+                className="hidden dark:block"
+              />
             </ShiftBy>
             <div className="text-default font-bold">
               <div
                 dangerouslySetInnerHTML={{
                   __html: t("total-burned", {
-                    ethBurnedHtml: `<span class='text-primary-400'>${toEth(
+                    ethBurnedHtml: `<span class='text-primary-400 dark:text-primary-200'>${toEth(
                       stats.totalburn
                     )} ETH</span>`,
-                    fiatHtml: `<span class='ml-1 text-xs text-gray-500 font-medium whitespace-nowrap'>${stats.eth[currencyKey]} ${currency}</span>`,
+                    fiatHtml: `<span class='ml-1 text-xs text-gray-500 dark:text-[#939496] font-medium whitespace-nowrap'>${stats.eth[currencyKey]} ${currency}</span>`,
                   }),
                 }}
               />
@@ -82,13 +97,13 @@ function Tools() {
         <Card className="flex items-center min-h-[160px]">
           <div className="grid grid-cols-2 gap-y-[20px] w-full lg:grid-cols-4 lg:gay-y-0 lg:justify-between lg:px-[90px]">
             <div>
-              <StatsColLabel icon={gasStationSvg} name={t("base-fee")} />
+              <StatsColLabel iconType="gas-station" name={t("base-fee")} />
               <div className="min-h-[16px] h-[16px]" />
               <StatsColData data={toGWei(stats.basefee, 1)} />
             </div>
             <div>
               <StatsColLabel
-                icon={fireSvg}
+                iconType="fire"
                 name={t("burn-rate")}
                 subText="(10mins)"
               />
@@ -97,7 +112,7 @@ function Tools() {
             </div>
             <div>
               <StatsColLabel
-                icon={fireSvg}
+                iconType="fire"
                 name={t("burn-rate")}
                 subText="(1h)"
               />
@@ -106,7 +121,7 @@ function Tools() {
             </div>
             <div>
               <StatsColLabel
-                icon={fireSvg}
+                iconType="fire"
                 name={t("burn-rate")}
                 subText="(24h)"
               />
@@ -156,21 +171,58 @@ function Tools() {
 }
 
 function StatsColLabel({
-  icon,
+  iconType,
   name,
   subText,
 }: {
-  icon: string;
+  iconType: "gas-station" | "fire";
   name: string;
   subText?: string;
 }) {
   return (
     <div className="flex items-center">
-      <img src={icon} alt="icon" width={40} height={40} />
+      {iconType === "gas-station" && (
+        <>
+          <img
+            src={gasStationSvg}
+            alt="icon"
+            width={40}
+            height={40}
+            className="block dark:hidden"
+          />
+          <img
+            src={gasStationDarkSvg}
+            alt="icon"
+            width={40}
+            height={40}
+            className="hidden dark:block"
+          />
+        </>
+      )}
+      {iconType === "fire" && (
+        <>
+          <img
+            src={fireSvg}
+            alt="icon"
+            width={40}
+            height={40}
+            className="block dark:hidden"
+          />
+          <img
+            src={fireDarkSvg}
+            alt="icon"
+            width={40}
+            height={40}
+            className="hidden dark:block"
+          />
+        </>
+      )}
       <div className="ml-1 flex flex-wrap items-baseline">
-        <div className="text-primary-400 font-bold text-md">{name}</div>
+        <div className="text-primary-400 dark:text-primary-[#5783f7] font-bold text-md">
+          {name}
+        </div>
         {subText && (
-          <div className="ml-[2px] text-primary-400 font-bold text-xs">
+          <div className="ml-[2px] text-primary-400 dark:text-primary-[#5783f7] font-bold text-xs">
             {subText}
           </div>
         )}
@@ -190,7 +242,9 @@ function StatsColData({
 }) {
   return (
     <div className="pl-[44px]">
-      <div className="mb-1 text-xl text-[#222222] font-medium">{data}</div>
+      <div className="mb-1 text-xl text-[#222222] dark:text-white font-medium">
+        {data}
+      </div>
       {inFiat && currency && (
         <div className="text-gray-500 text-xs font-medium">
           <span>{inFiat}</span>
