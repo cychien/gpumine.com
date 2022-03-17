@@ -20,7 +20,24 @@ import Background from "./components/Background";
 import QuickActions from "./components/QuickActions";
 
 export const meta: MetaFunction = () => {
-  return { title: "GPUMINE POOL" };
+  return {
+    title: "GPUMINE POOL",
+    description: "台灣礦池，高收益PPS+、本地節點低延遲、在地社群。",
+    keywords:
+      "台灣礦池,台灣以太幣,以太幣礦池,顯示卡挖礦,礦工,虛擬貨幣,顯示卡挖礦,以太幣,顯示卡,Ethereum,ETH,eth pool,tw mining,gpumine,gpu mining",
+    "og:url": "https://gpumine.org",
+    "og:title": "GPUMINE POOL",
+    "og:description": "台灣礦池，高收益PPS+、本地節點低延遲、在地社群。",
+    "og:image": "/images/og_image.png",
+    "og:image:width": "1176",
+    "og:image:height": "620",
+    "twitter:site": "https://gpumine.org",
+    "twitter:card": "summary_large_image",
+    "twitter:title": "GPUMINE POOL",
+    "twitter:description": "台灣礦池，高收益PPS+、本地節點低延遲、在地社群。",
+    "twitter:image": "/images/og_image.png",
+    "twitter:image:src": "/images/og_image.png",
+  };
 };
 
 export function links() {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { LoaderFunction, useOutletContext, useSearchParams } from "remix";
-import { useLoaderData } from "remix";
+import { useLoaderData, useOutletContext, useSearchParams } from "remix";
+import type { LoaderFunction } from "remix";
 import Card from "~/components/Card";
 import ShiftBy from "~/components/ShiftBy";
 import { getDifficulties, getStats, getGasHistory } from "~/models/eth";
