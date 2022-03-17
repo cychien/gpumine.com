@@ -11,7 +11,7 @@
     "dev": "concurrently \"yarn dev:css\" \"yarn dev:remix\"",
     "dev:css": "tailwindcss -i ./styles/app.css -o ./app/styles/app.css --watch",
     "dev:remix": "cross-env NODE_ENV=development node -r dotenv/config -r ./mocks node_modules/.bin/remix dev",
-    "start": "cross-env NODE_ENV=production remix-serve build",
+    "start": "cross-env NODE_ENV=production node -r ./mocks node_modules/.bin/remix-serve build",
     "preview": "cross-env NODE_ENV=production node -r ./mocks node_modules/.bin/remix-serve build"
   },
   "dependencies": {
@@ -53,6 +53,6 @@
     "typescript": "^4.5.5"
   },
   "engines": {
-    "node": ">=16.x"
+    "node": "14.x"
   }
 }
