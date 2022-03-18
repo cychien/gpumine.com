@@ -7,7 +7,7 @@ import bgMobileDark from "~/assets/images/bg-mobile-dark.png";
 
 function Background() {
   return (
-    <div className="absolute right-0 top-[100px] pointer-events-none lg:top-0">
+    <div className="absolute right-0 top-[70px] pointer-events-none lg:top-0">
       <picture className="hidden lg:block dark:lg:hidden">
         <source type="image/webp" srcSet={bgDesktopLightWebp} />
         <img alt="" src={bgDesktopLight} />

@@ -52,8 +52,8 @@ function Tools() {
     | "gbp";
 
   return (
-    <main className="max-w-[1280px] mx-auto px-[20px] lg:px-[48px]">
-      <h1 className="flex mt-8 lg:mt-4">
+    <main className="max-w-[1280px] mx-auto pt-8 px-[20px] lg:px-[48px]">
+      <h1 className="flex lg:mt-4">
         <span className="mr-3 w-[6px] bg-default" />
         <span className="text-default text-lg font-bold">{t("heading")}</span>
       </h1>
